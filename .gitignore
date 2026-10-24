@@ -5,6 +5,7 @@
 .env.backup
 .env.production
 .phpactor.json
+phpunit.xml
 .phpunit.result.cache
 /.codex
 /.cursor/
