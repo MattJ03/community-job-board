@@ -60,12 +60,26 @@ class AuthController extends Controller
                 'message' => 'user not found',
                 ], 403);
         }
+        $user->tokens()->delete();
         $user->delete();
         return response()->json([
             'message' => 'user deleted successfully',
         ]);
     }
 
-    //logout next
+    public function logout() {
+        $user = auth()->user();
+        if(!$user) {
+            return response()->json([
+                'message' => 'user not found',
+            ]);
+        }
+
+        $user->tokens()->delete();
+        return response()->json([
+            'message' => 'user logged out successfully',
+            'user' => $user,
+        ]);
+    }
 
 }
