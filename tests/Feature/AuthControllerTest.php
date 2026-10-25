@@ -62,6 +62,22 @@ class AuthControllerTest extends TestCase
         ]);
     }
 
+    public function test_password_is_hashed(): void {
+        $user = [
+            'name' => 'ryan',
+            'email' => 'ryan@gmail.com',
+            'number' => '123456789',
+            'password' => 'password1',
+            'password_confirmation' => 'password1'
+        ];
+
+        $response = $this->postJson('/api/registerUser', $user);
+        $response->assertStatus(201);
+        $this->assertDatabaseMissing('users', [
+            'password' => $user['password'],
+        ]);
+    }
+
     public function test_login_returns_token(): void {
         $user = [
             'name' => 'ryan',
@@ -102,4 +118,6 @@ class AuthControllerTest extends TestCase
         $response2 = $this->postJson('/api/loginUser', $userLogin);
         $response2->assertStatus(422);
     }
+
+
 }
