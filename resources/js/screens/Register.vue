@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="buttons-wrapper">
-                <button class="register-btn">Register</button>
+                <button class="register-btn" @click="registerUser(form)">Register</button>
             </div>
             <div class="login-wrapper">
                 <span>Already have an account</span>
@@ -36,7 +36,10 @@
 </template>
 <script setup>
 import { ref, reactive, computed } from 'vue';
+import { useAuthStore } from "../stores/AuthStore.js";
 
+const loading = ref(false);
+const error = ref('');
 const form = reactive({
     name: '',
     email: '',
@@ -44,7 +47,17 @@ const form = reactive({
     password: '',
     password_confirmation: '',
 });
-
+const authStore = useAuthStore();
+async function registerUser(formInfo) {
+    loading.value = true;
+    try {
+        await authStore.registerUser(formInfo)
+    } catch(err) {
+        error.value = error.response?.data?.message || 'failed to register user';
+    } finally {
+        loading.value = false;
+    }
+}
 </script>
 <style scoped>
 .container {
