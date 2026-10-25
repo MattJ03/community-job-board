@@ -4,23 +4,23 @@
             <h2 class="register-title">Register</h2>
             <div class="details-section">
                 <div class="form-field">
-                <input type="text" id="name" class="input-field" />
+                <input type="text" v-model="form.name" id="name" class="input-field" />
                     <label for="name" class="field-name">Name</label>
                 </div>
                 <div class="form-field">
-                    <input type="email" class="input-field" id="email"/>
+                    <input type="email" v-model="form.email" class="input-field" id="email"/>
                     <label class="field-name" for="email">Email</label>
                 </div>
                 <div class="form-field">
-                    <input type="number" class="input-field" id="number"/>
+                    <input type="number" v-model="form.number" class="input-field" id="number"/>
                     <label for="number">Phone number</label>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="password"/>
+                    <input type="password" v-model="form.password" class="input-field" id="password"/>
                     <label for="password">Password</label>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="passwordConfirmation"/>
+                    <input type="password" v-model="form.password_confirmation" class="input-field" id="passwordConfirmation"/>
                     <label for="passwordConfirmation">Password confirmation</label>
                 </div>
             </div>
@@ -36,6 +36,15 @@
 </template>
 <script setup>
 import { ref, reactive, computed } from 'vue';
+
+const form = reactive({
+    name: '',
+    email: '',
+    number: '',
+    password: '',
+    password_confirmation: '',
+});
+
 </script>
 <style scoped>
 .container {
@@ -69,7 +78,8 @@ import { ref, reactive, computed } from 'vue';
 }
 .input-field {
     height: 60px;
-    padding-left: 30px;
+    padding-left: 20px;
+    padding-top: 6px;
     width: 70%;
     border-radius: 14px;
     border: solid 1px #ccd0d5;
@@ -81,7 +91,7 @@ import { ref, reactive, computed } from 'vue';
     border-color: #1F4D3A;;
 }
 .input-field:hover {
-    border-color: #1F4D3A;
+    border: 1px solid ;
 }
 .form-field {
     position: relative;
@@ -102,7 +112,7 @@ import { ref, reactive, computed } from 'vue';
 .input-field:not(:placeholder-shown) ~ label {
     top: 5px;
     transform: translateY(0);
-    font-size: 12px;
+    font-size: 14px;
     color: #1c1e21;
 }
 .buttons-wrapper {
@@ -121,7 +131,7 @@ import { ref, reactive, computed } from 'vue';
     border-radius: 30px;
 }
 .register-btn:hover {
-    background-color: #f8f9fa;
+    background-color: #E1D9D1;
     cursor: pointer;
 }
 
@@ -132,6 +142,7 @@ import { ref, reactive, computed } from 'vue';
     flex-direction: column;
     width: 100%;
     margin-top: 40px;
+    padding-bottom: 20px;
 }
 .login-wrapper span {
     display: flex;
@@ -146,5 +157,9 @@ import { ref, reactive, computed } from 'vue';
     font-size: 16px;
     color: #ffffff;
     background-color: #0000ff;
+}
+.login-screen-btn:hover {
+    background-color: #0000B3;
+    cursor: pointer;
 }
 </style>
