@@ -55,7 +55,7 @@ const form = reactive({
 .form-card {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 35%;
     background-color: #0000ff;
     border-radius: 10px;
     padding-left: 30px;
