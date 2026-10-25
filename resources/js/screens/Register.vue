@@ -34,7 +34,7 @@
             </div>
             <div class="login-wrapper">
                 <span>Already have an account</span>
-                <button class="login-screen-btn">Move to login</button>
+                <button class="login-screen-btn" @click="moveToLogin()">Move to login</button>
             </div>
         </form>
     </div>
@@ -42,6 +42,7 @@
 <script setup>
 import { ref, reactive, computed } from 'vue';
 import { useAuthStore } from "../stores/AuthStore.js";
+import router from '../router/index.js';
 
 const loading = ref(false);
 const error = ref('');
@@ -92,6 +93,19 @@ function validate() {
 
     return valid;
 }
+
+const moveToLogin = async () => {
+    loading.value = true;
+    try {
+        await router.push({
+            name: 'login user',
+        });
+    } catch(err) {
+        error.value = error.response?.data?.message || 'failed to move to login';
+    } finally {
+        loading.value = false;
+    }
+}
 </script>
 <style scoped>
 .container {
@@ -124,7 +138,7 @@ function validate() {
     font-size: 18px;
 }
 .input-field {
-    height: 60px;
+    height: 55px;
     padding-left: 20px;
     padding-top: 6px;
     width: 70%;
@@ -167,7 +181,7 @@ function validate() {
 .buttons-wrapper {
     width: 100%;
     display: flex;
-    margin-top: 40px;
+    margin-top: 60px;
     justify-content: center;
 }
 .register-btn {
@@ -200,7 +214,7 @@ function validate() {
 }
 .login-screen-btn {
     width: 50%;
-    height: 45px;
+    height: 55px;
     border-radius: 30px;
     border: 1px solid #ffffff;
     font-size: 16px;
