@@ -58,13 +58,14 @@ class AuthController extends Controller
         if(!$user) {
             return response()-json([
                 'message' => 'user not found',
-                ]);
+                ], 403);
         }
-
         $user->delete();
         return response()->json([
             'message' => 'user deleted successfully',
         ]);
     }
+
+    //logout next
 
 }

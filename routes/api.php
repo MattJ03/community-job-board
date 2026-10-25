@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/registerUser', [AuthController::class, 'registerUser']);
 Route::post('/loginUser', [AuthController::class, 'loginUser']);
-Route::middleware('auth:api')->group(function () {
 
+Route::middleware('auth:sanctum')->group(function () {
+Route::delete('/deleteUser', [AuthController::class, 'deleteUser']);
 });

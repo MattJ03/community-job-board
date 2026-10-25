@@ -119,5 +119,23 @@ class AuthControllerTest extends TestCase
         $response2->assertStatus(422);
     }
 
+    public function test_delete_user_removes_user(): void {
+        $user = [
+            'name' => 'ryan',
+            'email' => 'ryan@gmail.com',
+            'number' => '123456789',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+        $response1 = $this->postJson('/api/registerUser', $user);
+        $response1->assertStatus(201);
+
+        $loggedIn = User::where('email', $user['email'])->first();
+        $this->actingAs($loggedIn);
+
+        $response2 = $this->deleteJson('/api/deleteUser');
+        $response2->assertStatus(200);
+    }
+
 
 }
