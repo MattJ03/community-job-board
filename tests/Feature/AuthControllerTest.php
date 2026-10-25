@@ -80,4 +80,26 @@ class AuthControllerTest extends TestCase
             'message', 'token', 'user',
         ]);
     }
+
+    public function test_cannot_login_with_wrong_password(): void {
+        $user = [
+            'name' => 'ryan',
+            'email' => 'ryan@gmail.com',
+            'number' => '123456789',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+
+        $response1 = $this->postJson('/api/registerUser', $user);
+        $response1->assertStatus(201);
+
+        $userLogin = [
+            'email' => 'ryan@gmail.com',
+            'password' => 'password1',
+
+        ];
+
+        $response2 = $this->postJson('/api/loginUser', $userLogin);
+        $response2->assertStatus(422);
+    }
 }

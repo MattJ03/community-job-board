@@ -41,7 +41,7 @@ class AuthController extends Controller
         if(!$user || !Hash::check($validatedData['password'], $user->password)) {
             return response()->json([
                 'message' => 'credentials not matching account',
-            ]);
+            ], 422);
         }
 
         $token = $user->createToken('api_token')->plainTextToken;
@@ -49,7 +49,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
             'message' => 'user logged in successfully',
-        ]);
+        ], 200);
     }
 
 }
