@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="form-card">
-            <h2 class="register-title">Register</h2>
+        <form @submit.prevent="registerUser(form)" class="form-card">
+            <h2 class="register-title">Register account</h2>
             <div class="details-section">
                 <div class="form-field">
                 <input type="text" v-model="form.name" id="name" class="input-field" />
@@ -25,13 +25,13 @@
                 </div>
             </div>
             <div class="buttons-wrapper">
-                <button class="register-btn" @click="registerUser(form)">Register</button>
+                <button class="register-btn">Register</button>
             </div>
             <div class="login-wrapper">
                 <span>Already have an account</span>
                 <button class="login-screen-btn">Move to login</button>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 <script setup>
@@ -47,16 +47,43 @@ const form = reactive({
     password: '',
     password_confirmation: '',
 });
+const errors = reactive({
+    name: '',
+    email: '',
+    number: '',
+    password: '',
+    password_confirmation: '',
+});
 const authStore = useAuthStore();
 async function registerUser(formInfo) {
+    if(!validate()) {
+        console.log('invalid form');
+        return;
+    }
     loading.value = true;
     try {
-        await authStore.registerUser(formInfo)
+        await authStore.registerUser(formInfo);
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to register user';
     } finally {
         loading.value = false;
     }
+}
+
+function validate() {
+    let valid = true;
+
+    errors.name = form.name ? '' : 'name is required';
+    errors.email = form.email ? '' : 'email required';
+    errors.number = form.number ? '' : 'number required';
+    errors.password = form.password ? '' : 'enter a password';
+    errors.password_confirmation = form.password_confirmation ? '' : 'enter password confirmation';
+
+    if(!form.name || !form.email || !form.number || !form.password || !form.password_confirmation) {
+        valid = false;
+    }
+
+    return valid;
 }
 </script>
 <style scoped>
@@ -150,7 +177,7 @@ async function registerUser(formInfo) {
 
 .login-wrapper {
     display: flex;
-
+    gap: 8px;
     align-items: center;
     flex-direction: column;
     width: 100%;
@@ -174,5 +201,22 @@ async function registerUser(formInfo) {
 .login-screen-btn:hover {
     background-color: #0000B3;
     cursor: pointer;
+}
+@media(max-width: 900px) {
+    .form-card {
+        width: 85%;
+        padding-left: 10px;
+        margin-top: 40px;
+    }
+
+    .input-field {
+        width: 90%;
+    }
+    .buttons-wrapper {
+        margin-top: 25px;
+    }
+    .login-wrapper {
+        margin-top: 25px;
+    }
 }
 </style>
