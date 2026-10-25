@@ -6,22 +6,27 @@
                 <div class="form-field">
                 <input type="text" v-model="form.name" id="name" class="input-field" />
                     <label for="name" class="field-name">Name</label>
+                    <span class="error-text" v-if="errors.name"> {{ errors.name }} </span>
                 </div>
                 <div class="form-field">
                     <input type="email" v-model="form.email" class="input-field" id="email"/>
                     <label class="field-name" for="email">Email</label>
+                    <span class="error-text" v-if="errors.email"> {{ errors.email }} </span>
                 </div>
                 <div class="form-field">
                     <input type="number" v-model="form.number" class="input-field" id="number"/>
                     <label for="number">Phone number</label>
+                    <span class="error-text" v-if="errors.number"> {{ errors.number }} </span>
                 </div>
                 <div class="form-field">
                     <input type="password" v-model="form.password" class="input-field" id="password"/>
                     <label for="password">Password</label>
+                    <span class="error-text" v-if="errors.password || passwordTooShort"> {{ errors.password }} </span>
                 </div>
                 <div class="form-field">
                     <input type="password" v-model="form.password_confirmation" class="input-field" id="passwordConfirmation"/>
                     <label for="passwordConfirmation">Password confirmation</label>
+                    <span class="error-text" v-if="errors.password_confirmation"> {{ errors.password_confirmation }} </span>
                 </div>
             </div>
             <div class="buttons-wrapper">
@@ -54,6 +59,7 @@ const errors = reactive({
     password: '',
     password_confirmation: '',
 });
+const passwordTooShort = computed(() => form.password.length < 6);
 const authStore = useAuthStore();
 async function registerUser(formInfo) {
     if(!validate()) {
@@ -76,10 +82,11 @@ function validate() {
     errors.name = form.name ? '' : 'name is required';
     errors.email = form.email ? '' : 'email required';
     errors.number = form.number ? '' : 'number required';
-    errors.password = form.password ? '' : 'enter a password';
+    errors.password = form.password ? '' : 'password must be minimum 6 characters';
     errors.password_confirmation = form.password_confirmation ? '' : 'enter password confirmation';
 
-    if(!form.name || !form.email || !form.number || !form.password || !form.password_confirmation) {
+    if(!form.name || !form.email || !form.number || !form.password || !form.password_confirmation || form.password.length < 6) {
+        errors.password = 'password must be minimum 6 characters';
         valid = false;
     }
 
@@ -134,6 +141,8 @@ function validate() {
     border: 1px solid ;
 }
 .form-field {
+    display: flex;
+    flex-direction: column;
     position: relative;
 
 }
@@ -182,7 +191,7 @@ function validate() {
     flex-direction: column;
     width: 100%;
     margin-top: 40px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 .login-wrapper span {
     display: flex;
@@ -201,6 +210,11 @@ function validate() {
 .login-screen-btn:hover {
     background-color: #0000B3;
     cursor: pointer;
+}
+.error-text {
+    color:  #B00020;
+    padding-top: 3px;
+    font-size: 16px;
 }
 @media(max-width: 900px) {
     .form-card {
