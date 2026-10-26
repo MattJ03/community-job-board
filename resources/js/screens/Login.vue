@@ -1,19 +1,22 @@
 <template>
     <div class="container">
-        <form class="form-card">
+        <form @submit.prevent="loginUser(form)" class="form-card">
           <h2 class="login-header">Login</h2>
             <div class="login-details">
                 <div class="form-field">
                 <input type="email" v-model="form.email" class="input-field" id="email"/>
                 <label class="field-name" for="email">Email</label>
+                    <span class="error-text" v-if="errors.email"> {{ errors.email }}</span>
                 </div>
                 <div class="form-field">
                     <input type="password" v-model="form.password" class="input-field" id="password"/>
                     <label for="password" class="field-name">Password</label>
+                    <span class="error-text" v-if="errors.password"> {{ errors.password }}</span>
                 </div>
             </div>
             <div class="button-wrapper">
                 <button class="login-btn">Login</button>
+                <button class="go-to-register">Create an account</button>
             </div>
 
         </form>
@@ -22,6 +25,7 @@
 </template>
 <script setup>
 import { ref, reactive, computed } from "vue";
+import { useAuthStore } from "../stores/AuthStore.js";
 
 const loading = ref(false);
 const error = ref(null);
@@ -33,6 +37,37 @@ const errors = reactive({
     email: '',
     password: ''
 });
+
+const authStore = useAuthStore();
+
+const loginUser = async (formInfo) => {
+    if(!validate()) {
+        console.log('invalid form info');
+        return;
+    }
+    loading.value = true;
+    try {
+        await authStore.loginUser(formInfo);
+    } catch(err) {
+        error.value = error.response?.data?.message || 'failed to login user';
+    } finally {
+        loading.value = false;
+    }
+}
+
+function validate() {
+    let valid = true;
+
+    errors.email = form.email ? '' : 'email required';
+    errors.password = form.password ? '' : 'password required';
+
+    if(!form.email || !form.password) {
+        valid = false;
+    }
+
+    return valid;
+}
+
 </script>
 <style scoped>
 .container {
@@ -64,10 +99,10 @@ const errors = reactive({
     font-size: 18px;
 }
 .input-field {
-    height: 55px;
+    height: 60px;
     padding-left: 20px;
     padding-top: 6px;
-    width: 70%;
+    width: 90%;
     border-radius: 14px;
     border: solid 1px #ccd0d5;
     font-size: 16px;
@@ -107,6 +142,9 @@ const errors = reactive({
 .button-wrapper {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 25px;
+    flex-direction: column;
     margin-top: 50px;
     width: 100%;
     padding-bottom: 30px;
@@ -124,5 +162,18 @@ const errors = reactive({
     background-color: #E1D9D1;
     cursor: pointer;
 }
-
+.error-text {
+    color: #B00020;
+    font-size: 14px;
+    padding-top: 3px;
+}
+.go-to-register {
+    width: 50%;
+    height: 55px;
+    background-color: #ffffff;
+    font-size: 16px;
+    border: 1px solid #0000ff;
+    color: #0000ff;
+    border-radius: 30px;
+}
 </style>
