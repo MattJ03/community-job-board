@@ -117,7 +117,7 @@ const moveToLogin = async () => {
     display: flex;
     flex-direction: column;
     width: 35%;
-    background-color: #0000ff;
+    background-color: #0F172A;
     border-radius: 10px;
     padding-left: 30px;
     margin: auto;
@@ -187,14 +187,14 @@ const moveToLogin = async () => {
 .register-btn {
     width: 50%;
     height: 55px;
-    background-color: #ffffff;
+    background-color: #0000ff;
     font-size: 16px;
     border: 1px solid #0000ff;
-    color: #0000ff;
+    color: #ffffff;
     border-radius: 30px;
 }
 .register-btn:hover {
-    background-color: #E1D9D1;
+    background-color: #0000B3;
     cursor: pointer;
 }
 
@@ -216,7 +216,7 @@ const moveToLogin = async () => {
     width: 50%;
     height: 55px;
     border-radius: 30px;
-    border: 1px solid #ffffff;
+    border: 1px solid #0000ff;
     font-size: 16px;
     color: #ffffff;
     background-color: #0000ff;

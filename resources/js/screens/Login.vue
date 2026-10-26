@@ -16,7 +16,7 @@
             </div>
             <div class="button-wrapper">
                 <button class="login-btn">Login</button>
-                <button class="go-to-register">Create an account</button>
+                <button class="go-to-register" @click="moveToRegister()">Create an account</button>
             </div>
 
         </form>
@@ -26,6 +26,7 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
+import router from "../router/index.js";
 
 const loading = ref(false);
 const error = ref(null);
@@ -68,6 +69,19 @@ function validate() {
     return valid;
 }
 
+const moveToRegister = async () => {
+    loading.value = true;
+    try {
+        await router.push({
+            name: 'register user',
+        });
+    } catch (err) {
+        error.value = error.response?.data?.message || 'failed to move to register';
+    } finally {
+        loading.value = false;
+    }
+}
+
 </script>
 <style scoped>
 .container {
@@ -78,7 +92,7 @@ function validate() {
         display: flex;
         flex-direction: column;
         width: 35%;
-        background-color: #0000ff;
+        background-color: #0F172A;
         border-radius: 10px;
         padding-left: 30px;
         margin: auto;
@@ -152,14 +166,14 @@ function validate() {
 .login-btn {
     width: 50%;
     height: 55px;
-    background-color: #ffffff;
+    background-color: #0000ff;
     font-size: 16px;
     border: 1px solid #0000ff;
-    color: #0000ff;
+    color: #ffffff;
     border-radius: 30px;
 }
 .login-btn:hover {
-    background-color: #E1D9D1;
+    background-color: #0000B3;
     cursor: pointer;
 }
 .error-text {
@@ -170,10 +184,13 @@ function validate() {
 .go-to-register {
     width: 50%;
     height: 55px;
-    background-color: #ffffff;
+    background-color: #0000ff;
     font-size: 16px;
     border: 1px solid #0000ff;
-    color: #0000ff;
+    color: #ffffff;
     border-radius: 30px;
+}
+.go-to-register:hover {
+    background-color: #0000B3;
 }
 </style>
