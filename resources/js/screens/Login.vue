@@ -196,4 +196,11 @@ const moveToRegister = async () => {
 .go-to-register:hover {
     background-color: #0000B3;
 }
+@media(max-width: 900px) {
+    .form-card {
+        width: 85%;
+        margin-top: 40px;
+        padding-left: 10px;
+    }
+}
 </style>

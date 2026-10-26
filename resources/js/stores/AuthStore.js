@@ -14,6 +14,8 @@ export const useAuthStore = defineStore('users', () => {
        try {
            const res = await api.post('registerUser', payload);
            user.value = res.data.user;
+           token.value = res.data.token;
+           localStorage.setItem('token', token.value);
        } catch(err) {
            error.value = error.response?.data?.message || 'failed to register user';
        } finally {
