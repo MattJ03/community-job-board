@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="button-wrapper">
-
+                <button class="login-btn">Login</button>
             </div>
 
         </form>
@@ -96,4 +96,25 @@ const error = ref(null);
     font-size: 14px;
     color: #1c1e21;
 }
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    width: 100%;
+    padding-bottom: 30px;
+}
+.login-btn {
+    width: 50%;
+    height: 55px;
+    background-color: #ffffff;
+    font-size: 16px;
+    border: 1px solid #0000ff;
+    color: #0000ff;
+    border-radius: 30px;
+}
+.login-btn:hover {
+    background-color: #E1D9D1;
+    cursor: pointer;
+}
+
 </style>
