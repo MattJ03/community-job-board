@@ -20,6 +20,20 @@ export const useAuthStore = defineStore('users', () => {
        }
    }
 
+   const loginUser = async (payload) => {
+       loading.value = true;
+       try {
+           const res = await api.post('loginUser', payload);
+           user.value = res.data.user;
+           localStorage.setItem('name', res.data.user.name);
+           localStorage.setItem('token', res.data.token);
+       } catch (err) {
+           error.value = err.response?.data?.message || 'failed to login user';
+       } finally {
+           loading.value = false;
+       }
+   }
+
    return {
        user,
        token,
@@ -27,5 +41,6 @@ export const useAuthStore = defineStore('users', () => {
        loading,
        error,
        registerUser,
+       loginUser,
    }
 });

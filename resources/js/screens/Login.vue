@@ -4,11 +4,11 @@
           <h2 class="login-header">Login</h2>
             <div class="login-details">
                 <div class="form-field">
-                <input type="email" class="input-field" id="email"/>
+                <input type="email" v-model="form.email" class="input-field" id="email"/>
                 <label class="field-name" for="email">Email</label>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="password"/>
+                    <input type="password" v-model="form.password" class="input-field" id="password"/>
                     <label for="password" class="field-name">Password</label>
                 </div>
             </div>
@@ -25,6 +25,14 @@ import { ref, reactive, computed } from "vue";
 
 const loading = ref(false);
 const error = ref(null);
+const form = reactive({
+    email: '',
+    password: '',
+});
+const errors = reactive({
+    email: '',
+    password: ''
+});
 </script>
 <style scoped>
 .container {
