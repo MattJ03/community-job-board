@@ -9,7 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Company extends Model
 {
-    use HasFactory, HasApiTokens, Authorizable;
+    use HasFactory, HasApiTokens;
     protected $fillable = ['name', 'number_of_employees', 'industry', 'phone_number', 'email', 'password'];
     protected $appends = ['account_type'];
 

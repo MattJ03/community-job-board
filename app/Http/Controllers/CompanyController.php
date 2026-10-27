@@ -16,7 +16,7 @@ class CompanyController extends Controller
             'industry' => 'required',
             'phone_number' => 'required|min:3|max:16',
             'email' => 'required|email|unique:companies',
-            'password' => 'required|confirmed:min:6',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         $company = Company::create([
@@ -33,6 +33,6 @@ class CompanyController extends Controller
         return response()->json([
             'company' => $company,
             'message' => 'company registered successfully',
-        ]);
+        ], 201);
     }
 }
