@@ -71,7 +71,7 @@ async function registerUser(formInfo) {
     try {
         await authStore.registerUser(formInfo);
         await router.push({
-            name: 'home',
+            name: 'login user',
         });
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to register user';
