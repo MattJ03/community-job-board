@@ -4,32 +4,33 @@
             <h2 class="register-title">Register company</h2>
             <div class="company-details">
                 <div class="form-field">
-                    <input type="text" class="input-field" id="name"/>
+                    <input v-model="companyForm.name" type="text" class="input-field" id="name"/>
                     <label for="name" class="field-name">Company name</label>
                 </div>
                 <div class="form-field">
-                    <input type="email" class="input-field" id="email"/>
+                    <input v-model="companyForm.email" type="email" class="input-field" id="email"/>
                     <label for="email" class="field-name">Email</label>
                 </div>
                 <div class="form-field">
-                    <input type="text" class="input-field" id="industry"/>
+                    <input v-model="companyForm.industry" type="text" class="input-field" id="industry"/>
                     <label for="industry">Industry</label>
                 </div>
-                <div class="form-field">
-                    <select class="employee-num-dropdown" id="number of employees">
+                <div class="form-field-dropdown">
+                    <select v-model="companyForm.number_of_employees" class="employee-num-dropdown" id="number of employees">
                         <option v-for="num in employeeNumRange"> {{ num }} </option>
                     </select>
+                    <label class="field-name">Number of employees</label>
                 </div>
                 <div class="form-field">
-                    <input type="number" class="input-field" id="phone number"/>
+                    <input v-model="companyForm.phone_number" type="number" class="input-field" id="phone number"/>
                     <label for="phone number" class="field-name">Phone number</label>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="password" />
+                    <input v-model="companyForm.password" type="password" class="input-field" id="password" />
                     <label for="password" class="field-name">Password</label>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="confirm password"/>
+                    <input v-model="companyForm.password_confirmation" type="password" class="input-field" id="confirm password"/>
                     <label for="confirm password" class="field-name">Confirm password</label>
                 </div>
             </div>
@@ -41,6 +42,17 @@
 import { ref, reactive, computed } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
 
+const loading = ref(false);
+const error = ref('');
+const companyForm = reactive({
+    name: '',
+    email: '',
+    industry: '',
+    number_of_employees: '',
+    phone_number: '',
+    password: '',
+    password_confirmation: '',
+});
 const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000+']);
 </script>
 <style scoped>
@@ -113,8 +125,11 @@ const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000
     color: #1c1e21;
 }
 .employee-num-dropdown {
+
     width: 70%;
-    height: 50px;
+    font-size: 16px;
+    padding-left: 6px;
+    height: 55px;
     border-radius: 10px;
     background-color: #ffffff;
 }
@@ -122,4 +137,21 @@ const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000
     background-color: #f7fafc;
     cursor: pointer;
 }
+.form-field-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+.form-field-dropdown label {
+    position: absolute;
+    left: 13px;
+    top: 20%;
+    padding-top: 3px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.15s ease;
+}
+
 </style>
