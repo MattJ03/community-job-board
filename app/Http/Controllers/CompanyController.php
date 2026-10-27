@@ -35,4 +35,26 @@ class CompanyController extends Controller
             'message' => 'company registered successfully',
         ], 201);
     }
+
+    public function loginCompany(Request $request) {
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $company = Company::where('email', $validatedData['email'])->first();
+        if(!$company || !Hash::check($validatedData['password'], $company->password)) {
+            return response()->json([
+                'message' => 'invalid email or password',
+            ]);
+        }
+
+        $token = $company->createToken($company->name)->plainTextToken;
+
+        return response()->json([
+            'company' => $company,
+            'token' => $token,
+            'message' => 'login successfully',
+        ]);
+    }
 }

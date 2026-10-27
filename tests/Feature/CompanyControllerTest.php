@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use Database\Factories\UserFactory;
+use App\Models\Company;
 
 class CompanyControllerTest extends TestCase
 {
@@ -56,4 +57,18 @@ class CompanyControllerTest extends TestCase
             'name' => $company['name'],
         ]);
     }
+
+    public function test_company_login_returns_token(): void {
+        $company = Company::factory()->create();
+
+        $response = $this->postJson('/api/loginCompany', [
+            'email' => $company['email'],
+            'password' => 'password',
+        ]);
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'token',
+        ]);
+    }
+
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\company;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends Factory<company>
@@ -23,7 +24,7 @@ class CompanyFactory extends Factory
             'industry' => 'electrical engineering',
             'phone_number' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => $this->faker->password(),
+            'password' => Hash::make('password'),
         ];
     }
 }

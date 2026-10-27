@@ -9,6 +9,7 @@ use App\Http\Controllers\AuthController;
 Route::post('/registerUser', [AuthController::class, 'registerUser']);
 Route::post('/loginUser', [AuthController::class, 'loginUser']);
 Route::post('/registerCompany', [CompanyController::class, 'registerCompany']);
+Route::post('/loginCompany', [CompanyController::class, 'loginCompany']);
 
 Route::middleware('auth:sanctum')->group(function () {
 Route::delete('/deleteUser', [AuthController::class, 'deleteUser']);
