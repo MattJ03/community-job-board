@@ -3,7 +3,7 @@
         <div class="form-card">
             <div class="top-of-form">
             <h2 class="register-title">Register company</h2>
-                <span class="users-move-text">Move to users log in</span>
+                <span @click="moveToUserRegister()" class="users-move-text">register individual account?</span>
             </div>
             <div class="company-details">
                 <div class="form-field">
@@ -48,6 +48,8 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useAuthStore } from "../stores/AuthStore.js";
+import router from "../router/index.js";
+
 
 const loading = ref(false);
 const error = ref('');
@@ -90,6 +92,19 @@ function validate() {
 
     return valid;
 }
+
+const moveToUserRegister = async () => {
+    loading.value = true;
+    try {
+        await router.push({
+            name: 'register user'
+        });
+    } catch(err) {
+        error.value = error.response?.data?.message || 'failed to move to register user';
+    } finally {
+        loading.value = false;
+    }
+}
 </script>
 <style scoped>
 .container {
@@ -122,6 +137,10 @@ function validate() {
     color: #ffffff;
     margin-right: 10px;
     border-bottom: 1px solid #ffffff;
+}
+.users-move-text:hover {
+    cursor: pointer;
+    color: #ccd0d5;
 }
 .company-details {
     display: flex;
