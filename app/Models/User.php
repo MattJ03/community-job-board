@@ -18,6 +18,8 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
+    protected $appends = ['account_type'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -30,4 +32,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getAccountTypeAttribute() {
+        return 'user';
+    }
+
 }
