@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CompanyController extends Controller
 {
@@ -26,6 +27,8 @@ class CompanyController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);
+
+        Log::info($company->name . ' created a company account');
 
         return response()->json([
             'company' => $company,

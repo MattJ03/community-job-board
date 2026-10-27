@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class CompanyControllerTest extends TestCase
 {
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      */
@@ -16,5 +17,9 @@ class CompanyControllerTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
+    }
+
+    public function test_company_register_returns_company(): void {
+
     }
 }
