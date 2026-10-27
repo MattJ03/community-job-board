@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="form-card">
+        <form @submit.prevent="submitRegisterCompany(companyForm)" class="form-card">
             <div class="top-of-form">
             <h2 class="register-title">Register company</h2>
                 <span @click="moveToUserRegister()" class="users-move-text">register individual account?</span>
@@ -9,50 +9,57 @@
                 <div class="form-field">
                     <input v-model="companyForm.name" type="text" class="input-field" id="name"/>
                     <label for="name" class="field-name">Company name</label>
+                    <span class="error-text" v-if="errors.name"> {{errors.name }} </span>
                 </div>
                 <div class="form-field">
                     <input v-model="companyForm.email" type="email" class="input-field" id="email"/>
                     <label for="email" class="field-name">Email</label>
+                    <span class="error-text" v-if="errors.email">{{ errors.email }}</span>
                 </div>
                 <div class="form-field">
                     <input v-model="companyForm.industry" type="text" class="input-field" id="industry"/>
                     <label for="industry">Industry</label>
+                    <span class="error-text" v-if="errors.industry"> {{ errors.industry }}</span>
                 </div>
                 <div class="form-field-dropdown">
                     <select v-model="companyForm.number_of_employees" class="employee-num-dropdown" id="number of employees">
                         <option v-for="num in employeeNumRange"> {{ num }} </option>
                     </select>
                     <label class="field-name">Number of employees</label>
+                    <span class="error-text" v-if="errors.number_of_employees"> {{ errors.number_of_employees }}</span>
                 </div>
                 <div class="form-field">
                     <input v-model="companyForm.phone_number" type="number" class="input-field" id="phone number"/>
                     <label for="phone number" class="field-name">Phone number</label>
+                    <span class="error-text" v-if="errors.phone_number"> {{ errors.phone_number }}</span>
                 </div>
                 <div class="form-field">
                     <input v-model="companyForm.password" type="password" class="input-field" id="password" />
                     <label for="password" class="field-name">Password</label>
+                    <span class="error-text" v-if="errors.password"> {{ errors.password }}</span>
                 </div>
                 <div class="form-field">
                     <input v-model="companyForm.password_confirmation" type="password" class="input-field" id="confirm password"/>
                     <label for="confirm password" class="field-name">Confirm password</label>
+                    <span class="error-text" v-if="errors.password_confirmation"> {{ errors.password_confirmation }}</span>
                 </div>
             </div>
             <div class="buttons-wrapper">
                 <button class="submit-btn">Register {{ companyForm.name}} </button>
                 <button class="login-company-btn">Move to company login</button>
             </div>
-        </div>
+        </form>
     </div>
 
 </template>
 <script setup>
 import { ref, reactive, computed } from "vue";
-import { useAuthStore } from "../stores/AuthStore.js";
 import router from "../router/index.js";
-
+import { useCompanyAuthStore } from "../stores/CompanyAuthStore.js";
 
 const loading = ref(false);
 const error = ref('');
+const companyAuthStore = useCompanyAuthStore();
 const companyForm = reactive({
     name: '',
     email: '',
@@ -74,6 +81,20 @@ const errors = reactive({
 });
 const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000+']);
 
+const submitRegisterCompany = async (formInfo) => {
+    loading.value = true;
+    if(!validate()) {
+        console.log('invalid form info');
+        return;
+    }
+    try {
+        await companyAuthStore.registerCompany(formInfo);
+    } catch(err) {
+        error.value = error.response?.data?.message || 'failed to register company';
+    } finally {
+        loading.value = false;
+    }
+}
 function validate() {
     let valid = true;
 
@@ -254,5 +275,9 @@ const moveToUserRegister = async () => {
 .login-company-btn:hover {
     background-color: #ccd0d5;
     cursor: pointer;
+}
+.error-text {
+    color: #B00020;
+    font-size: 14px;
 }
 </style>
