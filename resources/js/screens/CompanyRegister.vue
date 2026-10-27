@@ -34,6 +34,9 @@
                     <label for="confirm password" class="field-name">Confirm password</label>
                 </div>
             </div>
+            <div class="buttons-wrapper">
+                <button class="submit-btn">Register {{ companyForm.name}} </button>
+            </div>
         </div>
     </div>
 
@@ -104,6 +107,7 @@ function validate() {
 .register-title {
     color: #ffffff;
     margin: auto;
+    margin-top: 30px;
 }
 .company-details {
     display: flex;
@@ -181,6 +185,27 @@ function validate() {
     font-size: 14px;
     pointer-events: none;
     transition: all 0.15s ease;
+}
+.buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+    width: 100%;
+}
+.submit-btn {
+    width: 55%;
+    height: 55px;
+    border-radius: 30px;
+    background-color: #0000ff;
+    color: #ffffff;
+    border: 1px solid #0000ff;
+    font-size: 16px;
+}
+.submit-btn:hover {
+    background-color: #0000B3;
+    cursor: pointer;
 }
 
 </style>
