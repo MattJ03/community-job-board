@@ -1,7 +1,10 @@
 <template>
     <div class="container">
         <div class="form-card">
+            <div class="top-of-form">
             <h2 class="register-title">Register company</h2>
+                <span class="users-move-text">Move to users log in</span>
+            </div>
             <div class="company-details">
                 <div class="form-field">
                     <input v-model="companyForm.name" type="text" class="input-field" id="name"/>
@@ -36,6 +39,7 @@
             </div>
             <div class="buttons-wrapper">
                 <button class="submit-btn">Register {{ companyForm.name}} </button>
+                <button class="login-company-btn">Move to company login</button>
             </div>
         </div>
     </div>
@@ -104,10 +108,20 @@ function validate() {
     margin-top: 120px;
 
 }
+.top-of-form {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 30px;
+}
 .register-title {
     color: #ffffff;
     margin: auto;
-    margin-top: 30px;
+}
+.users-move-text {
+    color: #ffffff;
+    margin-right: 10px;
+    border-bottom: 1px solid #ffffff;
 }
 .company-details {
     display: flex;
@@ -193,6 +207,7 @@ function validate() {
     flex-direction: column;
     margin-top: 60px;
     width: 100%;
+    padding-bottom: 40px;
 }
 .submit-btn {
     width: 55%;
@@ -207,5 +222,18 @@ function validate() {
     background-color: #0000B3;
     cursor: pointer;
 }
-
+.login-company-btn {
+    width: 55%;
+    height: 55px;
+    border: 1px solid #0000ff;
+    background-color: #ffffff;
+    border-radius: 30px;
+    font-size: 16px;
+    color: #0000ff;
+    margin-top: 40px;
+}
+.login-company-btn:hover {
+    background-color: #ccd0d5;
+    cursor: pointer;
+}
 </style>
