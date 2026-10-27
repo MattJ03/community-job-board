@@ -34,5 +34,26 @@ class CompanyControllerTest extends TestCase
 
         $response = $this->postJson('/api/registerCompany', $company);
         $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'company'
+        ]);
+    }
+
+    public function test_company_register_with_no_email_blocks(): void {
+        $company = [
+            'name' => 'gergrer',
+            'number_of_employees' => 10,
+            'industry' => 'ggewg',
+            'phone_number' => '123456789',
+            'email' => '',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ];
+
+        $response = $this->postJson('/api/registerCompany', $company);
+        $response->assertStatus(422);
+        $this->assertDatabaseMissing('companies', [
+            'name' => $company['name'],
+        ]);
     }
 }
