@@ -1,17 +1,19 @@
 <template>
     <div class="container">
-        <form class="form-card">
+        <form @submit.prevent="loginCompany(companyForm)" class="form-card">
             <div class="top-of-form">
                 <h2 class="login-title">Company login</h2>
             </div>
             <div class="company-details">
                 <div class="form-field">
-                    <input type="email" class="input-field" id="email"/>
+                    <input v-model="companyForm.email" type="email" class="input-field" id="email"/>
                     <label class="name-field" for="email">Email</label>
+                    <span class="error-text" v-if="errors.email"> {{ errors.email }}</span>
                 </div>
                 <div class="form-field">
-                    <input type="password" class="input-field" id="password"/>
+                    <input v-model="companyForm.password" type="password" class="input-field" id="password"/>
                     <label for="password">Password</label>
+                    <span class="error-text" v-if="errors.password"> {{ errors.password }}</span>
                 </div>
             </div>
             <div class="buttons-wrapper">
@@ -30,7 +32,34 @@ const loading = ref(false);
 const error = ref('');
 
 const companyAuthStore = useCompanyAuthStore();
+const companyForm = reactive({
+    email: '',
+    password: '',
+});
+const errors = reactive(({
+    email: '',
+    password: '',
+}));
 
+
+const loginCompany = async (formInfo) => {
+    loading.value = true;
+    if(!validate()) {
+        console.log('validation failed');
+        return;
+    }
+    try {
+        await companyAuthStore.loginCompany(formInfo);
+        console.log('validation passed');
+        await router.push({
+            name: 'home',
+        });
+    } catch (err) {
+        error.value = error.response?.data?.message ||  console.log(err);
+    } finally {
+        loading.value = false;
+    }
+}
 
 const moveToCompanyReg = async () => {
     loading.value = true;
@@ -43,6 +72,18 @@ const moveToCompanyReg = async () => {
     } finally {
         loading.value = false;
     }
+}
+
+function validate() {
+    let valid = true;
+
+    errors.email = companyForm.email ? '' : 'email required';
+    errors.password = companyForm.password ? '' : 'password minimum 6 characters';
+
+    if(!companyForm.email || !companyForm.password) {
+        valid = false;
+    }
+    return valid;
 }
 
 </script>
@@ -153,5 +194,9 @@ const moveToCompanyReg = async () => {
     background-color: #ccd0d5;
     cursor: pointer;
 }
-
+.error-text {
+    color: #B00020;
+    font-size: 16px;
+    padding-top: 3px;
+}
 </style>
