@@ -147,7 +147,8 @@ const moveToUserRegister = async () => {
 .top-of-form {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 30px;
     margin-top: 30px;
 }
 .register-title {
@@ -279,5 +280,28 @@ const moveToUserRegister = async () => {
 .error-text {
     color: #B00020;
     font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .form-card {
+        width: 85%;
+        margin-top: 40px;
+        padding-left: 10px;
+    }
+    .company-details {
+        margin-top: 30px;
+    }
+    .input-field {
+        width: 90%;
+    }
+    .employee-num-dropdown {
+        width: 90%;
+    }
+    .buttons-wrapper {
+        margin-top: 30px;
+    }
+    .login-company-btn {
+        margin-top: 30px;
+    }
 }
 </style>
