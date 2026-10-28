@@ -1,7 +1,10 @@
 <template>
     <div class="container">
         <form @submit.prevent="registerUser(form)" class="form-card">
-            <h2 class="register-title">Register account</h2>
+            <div class="top-of-form">
+            <h2 class="register-title">Register user</h2>
+                <span @click="moveToCompanyRegister()" class="move-to-company-auth">Register company account?</span>
+            </div>
             <div class="details-section">
                 <div class="form-field">
                 <input type="text" v-model="form.name" id="name" class="input-field" />
@@ -34,7 +37,7 @@
             </div>
             <div class="login-wrapper">
                 <span>Already have an account</span>
-                <button class="login-screen-btn" @click="moveToLogin()">Move to login</button>
+                <button class="login-screen-btn" type="button" @click="moveToLogin()">Move to login</button>
             </div>
         </form>
     </div>
@@ -109,6 +112,19 @@ const moveToLogin = async () => {
         loading.value = false;
     }
 }
+
+const moveToCompanyRegister = async () => {
+    loading.value = true;
+    try {
+        await router.push({
+           name: 'register company',
+        });
+    } catch (err) {
+        error.value = error.response?.data?.message || 'failed to move to register';
+    } finally {
+        loading.value = false;
+    }
+}
 </script>
 <style scoped>
 .container {
@@ -126,10 +142,28 @@ const moveToLogin = async () => {
     margin: auto;
     margin-top: 120px;
 }
+.top-of-form {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 30px;
+}
 .register-title {
     margin: auto;
-    margin-top: 30px;
     color: #ffffff;
+}
+.move-to-company-auth {
+   margin: auto;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+
+}
+.move-to-company-auth:hover {
+    color: #ccd0d5;
+    border-bottom: 1px solid #ccd0d5;
+    cursor: pointer;
 }
 .details-section {
     display: flex;
