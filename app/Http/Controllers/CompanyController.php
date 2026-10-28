@@ -46,7 +46,7 @@ class CompanyController extends Controller
         if(!$company || !Hash::check($validatedData['password'], $company->password)) {
             return response()->json([
                 'message' => 'invalid email or password',
-            ]);
+            ], 401);
         }
 
         $token = $company->createToken($company->name)->plainTextToken;
