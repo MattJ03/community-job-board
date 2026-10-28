@@ -33,6 +33,7 @@ export const useAuthStore = defineStore('users', () => {
            console.log(res.data.token);
        } catch (err) {
            error.value = err.response?.data?.message || 'failed to login user';
+           throw err;
        } finally {
            loading.value = false;
        }
