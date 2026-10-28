@@ -99,7 +99,7 @@ const moveToRegister = async () => {
         border-radius: 10px;
         padding-left: 30px;
         margin: auto;
-        margin-top: 120px;
+        margin-top: 70px;
 }
 .login-header {
     margin: auto;

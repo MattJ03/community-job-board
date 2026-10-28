@@ -106,7 +106,7 @@ function validate() {
     errors.password = companyForm.password ? '' : 'password required';
     errors.password_confirmation = companyForm ? '' : 'password confirmation required';
 
-    if(!companyForm.name || !!companyForm.email || !companyForm.industry || !companyForm.number_of_employees || !companyForm.phone_number ||
+    if(!companyForm.name || !companyForm.email || !companyForm.industry || !companyForm.number_of_employees || !companyForm.phone_number ||
        !companyForm.password || !companyForm.password_confirmation) {
         valid = false;
     }
@@ -141,7 +141,7 @@ const moveToUserRegister = async () => {
     border-radius: 10px;
     padding-left: 30px;
     margin: auto;
-    margin-top: 120px;
+    margin-top: 70px;
 
 }
 .top-of-form {

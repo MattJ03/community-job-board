@@ -140,7 +140,7 @@ const moveToCompanyRegister = async () => {
     border-radius: 10px;
     padding-left: 30px;
     margin: auto;
-    margin-top: 120px;
+    margin-top: 70px;
 }
 .top-of-form {
     display: flex;
