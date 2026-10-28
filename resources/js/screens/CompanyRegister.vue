@@ -46,7 +46,7 @@
             </div>
             <div class="buttons-wrapper">
                 <button class="submit-btn">Register {{ companyForm.name}} </button>
-                <button class="login-company-btn">Move to company login</button>
+                <button type="button" @click="moveToCompanyLogin()" class="login-company-btn">Move to company login</button>
             </div>
         </form>
     </div>
@@ -89,6 +89,9 @@ const submitRegisterCompany = async (formInfo) => {
     }
     try {
         await companyAuthStore.registerCompany(formInfo);
+        await router.push({
+            name: 'login company',
+        });
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to register company';
     } finally {
@@ -122,6 +125,20 @@ const moveToUserRegister = async () => {
         });
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to move to register user';
+    } finally {
+        loading.value = false;
+    }
+}
+
+const moveToCompanyLogin = async () => {
+    loading.value = true;
+    try {
+        await router.push({
+            name: 'login company'
+        });
+    } catch (err) {
+        error.value = err.response?.data?.message || 'failed to move to login company screen';
+        console.log(error.value);
     } finally {
         loading.value = false;
     }
