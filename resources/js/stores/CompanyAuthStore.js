@@ -20,12 +20,27 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        }
    }
 
+   const loginCompany = async (payload) => {
+       loading.value = true;
+       try {
+           const res = await api.post('loginCompany', payload);
+           company.value = res.data.company;
+           token.value = res.data.token;
+           localStorage.setItem('token', token.value);
+       } catch (err) {
+           error.value = error.response?.data?.message || 'failed to login to company account';
+       } finally {
+           loading.value = false;
+       }
+   }
+
    return {
        loading,
        error,
        company,
        token,
        registerCompany,
+       loginCompany,
    };
 });
 
