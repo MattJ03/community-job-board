@@ -26,9 +26,11 @@ class ListingFactory extends Factory
             'requirements' => $this->faker->text(),
             'description' => $this->faker->text(),
             'minimum_qualification' => 'Masters',
+            'industry' => 'electronics',
             'work_from' => 'remote',
             'salary' => $this->faker->numberBetween(1,100),
             'hourly' => null,
+            'status' => 'open',
             'views' => 0,
         ];
     }

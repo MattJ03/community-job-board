@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('requirements');
             $table->text('description');
             $table->string('minimum_qualification');
+            $table->string('industry');
             $table->string('work_from');
             $table->decimal('salary')->nullable();
             $table->decimal('hourly')->nullable();
