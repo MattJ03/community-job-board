@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
+            $table->string('title');
+            $table->string('location');
+            $table->integer('years_of_experience');
+            $table->text('requirements');
+            $table->text('description');
+            $table->string('minimum_qualification');
+            $table->string('work_from');
+            $table->decimal('salary')->nullable();
+            $table->decimal('hourly')->nullable();
+            $table->unsignedBigInteger('views');
             $table->timestamps();
         });
     }
