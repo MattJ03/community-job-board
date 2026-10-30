@@ -19,10 +19,10 @@ class ListingController extends Controller
             $query->where('work_from', $request->work_from);
         }
         if($request->filled('min_salary')) {
-            $query->where('salary', '=>', $request->min_salary);
+            $query->where('salary', '>=', $request->min_salary);
         }
         if($request->filled('min_hourly')) {
-            $query->where('hourly', '=>', $request->min_hourly);
+            $query->where('hourly', '>=', $request->min_hourly);
         }
 
         if($request->filled('search')) {
@@ -42,10 +42,8 @@ class ListingController extends Controller
             ]);
         }
 
-        $listings->paginate(20);
-        foreach($listings as $listing) {
-            $listing->increment('views');
-        }
+        $listings = $listings->paginate(20);
+
         return response()->json([
             'listings' => $listings,
             'message' => 'listing listings',
