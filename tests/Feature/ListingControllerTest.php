@@ -56,4 +56,11 @@ class ListingControllerTest extends TestCase
         $response = $this->getJson('api/showListing/' . $listing->id);
         $response->assertStatus(200);
     }
+
+    public function test_cannot_show_listing_when_unauthenticated(): void {
+        $listing = Listing::factory()->create();
+
+        $response = $this->getJson('api/showListing/' . $listing->id);
+        $response->assertStatus(401);
+    }
 }

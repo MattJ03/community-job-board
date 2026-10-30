@@ -43,6 +43,9 @@ class ListingController extends Controller
         }
 
         $listings = $listings->paginate(20);
+        foreach($listings as $listing) {
+            $listing->increment('views');
+        }
 
         return response()->json([
             'listings' => $listings,
@@ -61,4 +64,5 @@ class ListingController extends Controller
         ]]);
 
     }
+
 }
