@@ -39,4 +39,21 @@ class ListingControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure(['listings']);
     }
+
+    public function test_listings_index_returns_logged_in(): void {
+        $listings = Listing::factory()->count(3)->create();
+
+
+        $response = $this->getJson('/api/listingsIndex');
+        $response->assertStatus(401);
+    }
+
+    public function test_show_listings_returns_listing(): void {
+        $listing = Listing::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $response = $this->getJson('api/showListing/' . $listing->id);
+        $response->assertStatus(200);
+    }
 }

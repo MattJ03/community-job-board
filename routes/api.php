@@ -14,5 +14,6 @@ Route::post('/loginCompany', [CompanyController::class, 'loginCompany']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listingsIndex', [ListingController::class, 'availableListings']);
+    Route::get('showListing/{listing}', [ListingController::class, 'showListing']);
 Route::delete('/deleteUser', [AuthController::class, 'deleteUser']);
 });
