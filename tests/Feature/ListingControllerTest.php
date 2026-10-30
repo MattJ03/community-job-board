@@ -18,6 +18,10 @@ class ListingControllerTest extends TestCase
     }
 
     public function test_index_listings_returns_listings(): void {
+        $listings = Listing::factory()->count(3)->create();
 
+        $response = $this->getJson('/listingsIndex');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['listings']);
     }
 }
