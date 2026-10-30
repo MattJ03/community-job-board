@@ -65,4 +65,37 @@ class ListingController extends Controller
 
     }
 
+    public function storeListing(Request $request) {
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'location' => 'required|max:255',
+            'years_of_experience' => 'nullable',
+            'requirements' => 'nullable|max:255',
+            'description' => 'required|max:255',
+            'minimum_qualification' => 'nullable',
+            'work_from' => 'required',
+            'industry' => 'required|max:255',
+            'salary' => 'nullable',
+            'hourly' => 'nullable',
+            ]);
+
+        $listing = Listing::create([
+            'company_id' => $request->user()->id,
+            'title' => $validatedData['title'],
+            'location' => $validatedData['location'],
+            'years_of_experience' => $validatedData['years_of_experience'],
+            'requirements' => $validatedData['requirements'],
+            'description' => $validatedData['description'],
+            'minimum_qualification' => $validatedData['minimum_qualification'],
+            'work_from' => $validatedData['work_from'],
+            'industry' => $validatedData['industry'],
+            'salary' => $validatedData['salary'] ?? null,
+            'hourly' => $validatedData['hourly'] ?? null,
+        ]);
+
+        return response()->json([
+            'listing' => $listing,
+            'message' => 'listing listing created',
+        ], 201);
+    }
 }
