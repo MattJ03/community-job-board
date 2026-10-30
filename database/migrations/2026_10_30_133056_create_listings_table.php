@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('work_from');
             $table->decimal('salary')->nullable();
             $table->decimal('hourly')->nullable();
+            $table->string('status')->default('open');
             $table->unsignedBigInteger('views');
             $table->timestamps();
         });
