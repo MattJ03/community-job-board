@@ -10,9 +10,43 @@ class ListingController extends Controller
 
     public function availableListings(Request $request) {
 
-        $listings = Listing::where('status', 'open');
+        $query = Listing::where('status', 'open');
 
-        if($request->filled(''))
+        if($request->filled('location')) {
+            $query->where('location', $request->location);
+        }
+        if($request->filled('work_from')) {
+            $query->where('work_from', $request->work_from);
+        }
+        if($request->filled('min_salary')) {
+            $query->where('salary', '=>', $request->min_salary);
+        }
+        if($request->filled('min_hourly')) {
+            $query->where('hourly', '=>', $request->min_hourly);
+        }
+
+        if($request->filled('search')) {
+            $search = $request->query('search');
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->orWhere('location', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        $listings = $query->orderBy('created_at', 'desc');
+        if($listings->count() <= 0) {
+            return response()->json([
+                'listings' => $listings,
+                'message' => 'no listings found',
+            ]);
+        }
+
+        $listings->paginate(20);
+        return response()->json([
+            'listings' => $listings,
+            'message' => 'listing listings',
+        ]);
 
 
     }
