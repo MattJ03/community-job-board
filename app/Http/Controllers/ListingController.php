@@ -137,11 +137,7 @@ class ListingController extends Controller
     }
 
     public function deleteListing(Listing $listing) {
-        $listing->delete();
 
-        return response()->json([
-            'message' => 'listing listing deleted',
-        ]);
     }
 
 }
