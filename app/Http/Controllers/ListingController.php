@@ -135,4 +135,13 @@ class ListingController extends Controller
             'message' => 'listing listing updated',
         ]);
     }
+
+    public function deleteListing(Listing $listing) {
+        $listing->delete();
+
+        return response()->json([
+            'message' => 'listing listing deleted',
+        ]);
+    }
+
 }
