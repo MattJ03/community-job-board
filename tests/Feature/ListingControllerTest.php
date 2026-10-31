@@ -63,4 +63,41 @@ class ListingControllerTest extends TestCase
         $response = $this->getJson('api/showListing/' . $listing->id);
         $response->assertStatus(401);
     }
+
+    public function test_store_listing_adds_to_database(): void {
+        $company = Company::factory()->create();
+        $this->actingAs($company);
+
+        $listingData = Listing::factory()->make()->toArray();
+        $response = $this->postJson('/api/storeListing', $listingData);
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('listings', [
+            'company_id' => $company->id,
+        ]);
+    }
+
+    public function test_non_company_accounts_cannot_create_listings(): void {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $listingData = Listing::factory()->make()->toArray();
+        $response = $this->postJson('/api/storeListing', $listingData);
+        $response->assertStatus(500);
+        $this->assertDatabaseMissing('listings',
+        ['company_id' => $user->id]);
+
+    }
+
+    public function test_update_listing_returns_listing(): void {
+        $company = Company::factory()->create();
+        $this->actingAs($company);
+
+        $listing = Listing::factory()->create(['company_id' => $company->id]);
+
+        $updatedListing = Listing::factory()->make(['company_id' => $company->id])->toArray();
+
+        $response = $this->putJson('/api/updateListing/' . $listing->id, $updatedListing);
+        $response->assertStatus(200);
+
+    }
 }

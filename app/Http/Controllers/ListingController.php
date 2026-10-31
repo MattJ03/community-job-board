@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ListingController extends Controller
 {
@@ -91,11 +92,47 @@ class ListingController extends Controller
             'industry' => $validatedData['industry'],
             'salary' => $validatedData['salary'] ?? null,
             'hourly' => $validatedData['hourly'] ?? null,
+            'views' => 0,
         ]);
+        Log::info($request->user()->title . ' created listing ' . $listing->id);
 
         return response()->json([
             'listing' => $listing,
             'message' => 'listing listing created',
         ], 201);
+    }
+
+    public function updateListing(Request $request, Listing $listing) {
+
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'location' => 'required|max:255',
+            'years_of_experience' => 'nullable',
+            'requirements' => 'nullable|max:255',
+            'description' => 'required|max:255',
+            'minimum_qualification' => 'nullable',
+            'work_from' => 'required',
+            'industry' => 'required|max:255',
+            'salary' => 'nullable',
+            'hourly' => 'nullable',
+        ]);
+
+        $listing->update([
+            'title' => $validatedData['title'],
+            'location' => $validatedData['location'],
+            'years_of_experience' => $validatedData['years_of_experience'],
+            'requirements' => $validatedData['requirements'],
+            'description' => $validatedData['description'],
+            'minimum_qualification' => $validatedData['minimum_qualification'],
+            'work_from' => $validatedData['work_from'],
+            'industry' => $validatedData['industry'],
+            'salary' => $validatedData['salary'] ?? null,
+            'hourly' => $validatedData['hourly'] ?? null,
+        ]);
+
+        return response()->json([
+            'listing' => $listing,
+            'message' => 'listing listing updated',
+        ]);
     }
 }
