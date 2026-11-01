@@ -100,4 +100,22 @@ class ListingControllerTest extends TestCase
         $response->assertStatus(200);
 
     }
+
+    public function test_delete_listing_deletes_listing(): void {
+        $company = Company::factory()->create();
+        $this->actingAs($company);
+        $listing = Listing::factory()->create(['company_id' => $company->id]);
+
+        $response = $this->deleteJson('/api/deleteListing/' . $listing->id);
+        $response->assertStatus(200);
+    }
+
+    public function test_user_cannot_delete_listing(): void {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $listing = Listing::factory()->create();
+        $response = $this->deleteJson('/api/deleteListing/' . $listing->id);
+        $response->assertStatus(403);
+    }
 }

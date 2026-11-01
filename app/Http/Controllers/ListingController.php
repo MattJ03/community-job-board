@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Policies\ListingPolicy;
 
 class ListingController extends Controller
 {
@@ -137,7 +138,12 @@ class ListingController extends Controller
     }
 
     public function deleteListing(Listing $listing) {
+        $this->authorize('delete', $listing);
+        $listing->delete();
 
+        return response()->json([
+            'message' => 'listing listing deleted',
+        ]);
     }
 
 }
