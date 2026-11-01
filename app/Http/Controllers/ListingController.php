@@ -6,6 +6,7 @@ use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Policies\ListingPolicy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ListingController extends Controller
 {
