@@ -51,6 +51,7 @@ const loginUser = async (formInfo) => {
         await authStore.loginUser(formInfo);
         await router.push({
             name: 'home',
+            meta: {userName: authStore.user.name},
         });
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to login user';
