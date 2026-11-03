@@ -129,4 +129,5 @@ class ListingControllerTest extends TestCase
         $response = $this->deleteJson('/api/deleteListing/' . $listing->id);
         $response->assertStatus(403);
     }
+
 }
