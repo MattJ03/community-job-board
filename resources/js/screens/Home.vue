@@ -169,13 +169,21 @@ console.log(userName.value);
     align-items: center;
     justify-content: center;
     gap: 12px;
-    width: 65%;
+    width: 40%;
+    margin-bottom: 40px;
 }
 .industry-bubble {
     color: #f7fafc;
-    padding: 6px 6px;
+    padding: 6px 8px;
     border-radius: 20px;
     border: 1px solid #f7fafc;
-
+}
+.industry-bubble:hover {
+    background-color: #4a5568;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.industry-bubble:focus {
+    background-color: #4a5568;
 }
 </style>
