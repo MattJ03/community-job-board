@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form @submit.prevent="submitRegisterCompany(companyForm)" class="form-card">
+        <form v-if="currentStep === 1" @submit.prevent="submitRegisterCompany(companyForm)" class="form-card">
             <div class="top-of-form">
             <h2 class="register-title">Register company</h2>
                 <span @click="moveToUserRegister()" class="users-move-text">register individual account?</span>
@@ -43,16 +43,20 @@
                     <label for="confirm password" class="field-name">Confirm password</label>
                     <span class="error-text" v-if="errors.password_confirmation"> {{ errors.password_confirmation }}</span>
                 </div>
-                <label class="add-logo" @click="triggerFileInput()">Add logo</label>
-                <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo()"/>
-
-
             </div>
             <div class="buttons-wrapper">
                 <button class="submit-btn">Register {{ companyForm.name}} </button>
                 <button type="button" @click="moveToCompanyLogin()" class="login-company-btn">Move to company login</button>
             </div>
         </form>
+        <div v-if="currentStep === 2" class="form-card-logo-upload">
+            <h2 class="register-title-upload">Upload company logo</h2>
+            <p>Account registered! Now time to add a company logo</p>
+
+            <label class="add-logo-field-name">Image upload</label>
+            <label class="add-logo" @click="triggerFileInput()">Add logo</label>
+            <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo()"/>
+        </div>
     </div>
 
 </template>
@@ -77,7 +81,10 @@ const companyForm = reactive({
 });
 
 const fileInput = ref(null);
-
+const selectedFile = ref(null);
+const currentStep = ref(1);
+const companyId = ref(null);
+const previewUrl = ref(null);
 const errors = reactive({
     name: '',
     email: '',
@@ -87,6 +94,9 @@ const errors = reactive({
     password: '',
     password_confirmation: '',
 });
+setTimeout(() => {
+    console.log(companyId.value);
+}, 20000);
 const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000+']);
 
 function triggerFileInput() {
@@ -99,10 +109,9 @@ const submitRegisterCompany = async (formInfo) => {
         return;
     }
     try {
-        await companyAuthStore.registerCompany(formInfo);
-        await router.push({
-            name: 'login company',
-        });
+       const response =  await companyAuthStore.registerCompany(formInfo);
+        companyId.value = companyAuthStore.company.id || 'failed to get company id';
+        currentStep.value = 2;
     } catch(err) {
         error.value = error.response?.data?.message || 'failed to register company';
     } finally {
@@ -350,6 +359,28 @@ const moveToCompanyLogin = async () => {
 .add-logo-img {
     height: 40px;
     width: 40px;
+}
+.register-title-upload {
+   margin: auto;
+    margin-top: 30px;
+
+}
+.form-card-logo-upload {
+    display: flex;
+
+    flex-direction: column;
+    width: 35%;
+    background-color: #0F172A;
+    border-radius: 10px;
+    color: #f7fafc;
+    padding-left: 30px;
+    margin: auto;
+    margin-top: 70px;
+
+}
+.add-logo-field-name {
+    margin-top: 70px;
+    color: #f7fafc;
 }
 @media (max-width: 900px) {
     .form-card {
