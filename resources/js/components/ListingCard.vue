@@ -9,6 +9,7 @@
                 <span class="listing-company"> {{ props.listing.company.name }}</span>
             </div>
         </div>
+        <div class="location-info">
         <div class="work-from-location" v-if="props.listing.work_from === 'remote'">
             <img :src="laptop" class="laptop-img" alt="laptop"/>
             <span class="work-from-answer">Remote</span>
@@ -21,6 +22,9 @@
             <img :src="hybrid" class="laptop-img" alt="hybrid"/>
             <span class="work-from-answer">Hybrid</span>
         </div>
+            <img :src="bluelocation" class="location-card-img" alt="location"/>
+            <span class="work-from-answer"> {{ props.listing.location }}</span>
+        </div>
         <div class="job-description-wrapper">
             <span> {{ props.listing.description }}</span>
         </div>
@@ -32,7 +36,7 @@ import defaultLogo from '../assets/dafaultLogo.png';
 import laptop from '../assets/laptop.png';
 import building from '../assets/building.png';
 import hybrid from '../assets/hybrid.png';
-
+import bluelocation from '../assets/bluelocation.png';
 
 const props = defineProps({
     listing: {
@@ -91,18 +95,29 @@ const props = defineProps({
     height: 22px;
     width: 22px;
 }
+.location-card-img {
+    height: 22px;
+    width: 22px;
+}
+.location-info {
+    display: flex;
+    align-items: center;
+    padding-top: 12px;
+    flex-direction: row;
+    width: 100%;
+}
 .work-from-location {
     display: flex;
     align-items: center;
     flex-direction: row;
-    width: 100%;
     gap: 5px;
-   padding-top: 10px;
+
     padding-left: 12px;
     color: #f7fafc;
 }
 .work-from-answer {
     color: #f7fafc;
+    padding-right: 6px;
 }
 .job-description-wrapper {
     display: flex;
