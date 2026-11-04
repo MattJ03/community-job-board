@@ -55,7 +55,8 @@
 
             <label class="add-logo-field-name">Image upload</label>
             <label class="add-logo" @click="triggerFileInput()">Add logo</label>
-            <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo()"/>
+            <img v-if="previewUrl" :src="previewUrl" class="logo-preview-thumb" />
+            <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo($event)"/>
         </div>
     </div>
 
@@ -143,13 +144,21 @@ const addCompanyLogo = async (event) => {
         if(!file) {
             return;
         }
+        selectedFile.value = file;
+    previewUrl.value = URL.createObjectURL(file);
         formData.append('logo', file);
+    if (companyId.value) {
+        formData.append('company_id', companyId.value);
+    }
         loading.value = true;
         try {
             const res = await api.post('storeCompanyLogo', formData, {
                 headers: {
                     'Content-Type': "multipart/form-data",
                 }
+            });
+            await router.push({
+                name: 'login company',
             });
         } catch (err) {
             error.value = err.response?.data?.message || 'failed to upload profile picture';
@@ -381,6 +390,12 @@ const moveToCompanyLogin = async () => {
 .add-logo-field-name {
     margin-top: 70px;
     color: #f7fafc;
+}
+.logo-preview-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
 }
 @media (max-width: 900px) {
     .form-card {

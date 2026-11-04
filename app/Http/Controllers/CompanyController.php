@@ -62,6 +62,14 @@ class CompanyController extends Controller
     public function storeCompanyLogo(Request $request) {
         $company = auth()->user();
 
+        if(!$company && $request->has('company_id')) {
+          $company = Company::find($request->company_id);
+        }
+        if(!$company) {
+            return response()->json([
+                'message' => 'invalid company id',
+            ]);
+        }
         $validatedData = $request->validate([
             'logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
         ]);
