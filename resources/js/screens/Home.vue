@@ -31,11 +31,14 @@ import { useAuthStore } from "../stores/AuthStore.js";
 import searchImg from '../assets/searchImg.png';
 import x from '../assets/x.png';
 import location from '../assets/location.png';
+import { useListingStore } from "../stores/ListingStore.js";
+
 
 const loading = ref(false);
 const error = ref('');
 const search = ref('');
 const authStore = useAuthStore();
+const listingStore = useListingStore();
 const userName = ref(authStore.user.name);
 const counties = ref(['Fermanagh', 'Antrim', 'Tyrone', 'Londonderry', 'Armagh', 'Down']);
 const industries = ref(['Software', 'Plumbing', 'Electrical', 'Mechanical', 'Gardening', 'Design', 'Moving', 'Transport', 'Roofing', 'Carpentry', 'Marketing', 'Business', 'Retail', 'Construction', 'Hospitality']);
