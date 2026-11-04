@@ -201,7 +201,11 @@ onMounted(async () => {
 }
 .listing-rows {
     display: grid;
-    flex-direction: row;
-
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 </style>

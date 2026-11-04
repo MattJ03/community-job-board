@@ -14,7 +14,7 @@ export const useListingStore = defineStore('listings', () => {
             const res = await api.get('listingsIndex', {
                 params: filters,
             });
-            totalListings.value = res.data.listings;
+            totalListings.value = res.data.listings.data;
         } catch (err) {
             error.values = error.response?.data?.message || 'failed to get total listings';
         }
