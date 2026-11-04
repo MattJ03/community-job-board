@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -56,5 +57,26 @@ class CompanyController extends Controller
             'token' => $token,
             'message' => 'login successfully',
         ]);
+    }
+
+    public function storeCompanyLogo(Request $request) {
+        $company = auth()->user();
+
+        $validatedData = $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+
+        $path = $request->file('logo')->store('logos/' . $company->id, 'public');
+
+        $company->update([
+            'logo' => $path,
+        ]);
+
+        return response()->json([
+            'company' => $company,
+            'message' => 'company logo created successfully',
+        ]);
+
+
     }
 }
