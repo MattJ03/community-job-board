@@ -43,6 +43,10 @@
                     <label for="confirm password" class="field-name">Confirm password</label>
                     <span class="error-text" v-if="errors.password_confirmation"> {{ errors.password_confirmation }}</span>
                 </div>
+                <label class="add-logo" @click="triggerFileInput()">Add logo</label>
+                <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo()"/>
+
+
             </div>
             <div class="buttons-wrapper">
                 <button class="submit-btn">Register {{ companyForm.name}} </button>
@@ -55,7 +59,9 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import router from "../router/index.js";
+import api from "../axios.js";
 import { useCompanyAuthStore } from "../stores/CompanyAuthStore.js";
+import add from '../assets/add.png';
 
 const loading = ref(false);
 const error = ref('');
@@ -70,6 +76,8 @@ const companyForm = reactive({
     password_confirmation: '',
 });
 
+const fileInput = ref(null);
+
 const errors = reactive({
     name: '',
     email: '',
@@ -81,6 +89,9 @@ const errors = reactive({
 });
 const employeeNumRange = ref(['1-5', '6-10', '11-50', '51-200', '200-999', '1000+']);
 
+function triggerFileInput() {
+    fileInput.value.click();
+}
 const submitRegisterCompany = async (formInfo) => {
     loading.value = true;
     if(!validate()) {
@@ -116,6 +127,29 @@ function validate() {
 
     return valid;
 }
+
+const addCompanyLogo = async (event) => {
+        const file = event.target.files[0];
+        const formData = new FormData();
+        if(!file) {
+            return;
+        }
+        formData.append('logo', file);
+        loading.value = true;
+        try {
+            const res = await api.post('storeCompanyLogo', formData, {
+                headers: {
+                    'Content-Type': "multipart/form-data",
+                }
+            });
+        } catch (err) {
+            error.value = err.response?.data?.message || 'failed to upload profile picture';
+        } finally {
+            loading.value = false;
+        }
+    }
+
+
 
 const moveToUserRegister = async () => {
     loading.value = true;
@@ -298,7 +332,25 @@ const moveToCompanyLogin = async () => {
     color: #B00020;
     font-size: 14px;
 }
+.add-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    border: 1px dotted #f7fafc;
+    cursor: pointer;
+    border-radius: 14px;
+    width: 30%;
+    transition: 0.3s;
+}
 
+.add-logo:hover {
+    background-color: #f7fafc;
+}
+.add-logo-img {
+    height: 40px;
+    width: 40px;
+}
 @media (max-width: 900px) {
     .form-card {
         width: 85%;
