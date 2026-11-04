@@ -56,8 +56,12 @@
             <label class="add-logo-field-name">Image upload</label>
             <label class="add-logo" @click="triggerFileInput()">Add logo</label>
             <img v-if="previewUrl" :src="previewUrl" class="logo-preview-thumb" />
-            <input type="file" ref="fileInput" style="display: none;" @change="addCompanyLogo($event)"/>
-        </div>
+            <input type="file" ref="fileInput" style="display: none;" accept="image/*" @change="handleFileSelect($event)"/>
+
+            <div class="upload-btn-wrapper">
+            <button class="upload-img-button" @click="addCompanyLogo()" :disabled="!selectedFile"> Upload logo</button>
+            </div>
+            </div>
     </div>
 
 </template>
@@ -138,14 +142,19 @@ function validate() {
     return valid;
 }
 
-const addCompanyLogo = async (event) => {
-        const file = event.target.files[0];
+const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    selectedFile.value = file;
+    previewUrl.value = URL.createObjectURL(file);
+};
+const addCompanyLogo = async () => {
+        const file = selectedFile.value;
         const formData = new FormData();
         if(!file) {
             return;
         }
-        selectedFile.value = file;
-    previewUrl.value = URL.createObjectURL(file);
         formData.append('logo', file);
     if (companyId.value) {
         formData.append('company_id', companyId.value);
@@ -364,6 +373,7 @@ const moveToCompanyLogin = async () => {
 
 .add-logo:hover {
     background-color: #f7fafc;
+    color: #1c1e21;
 }
 .add-logo-img {
     height: 40px;
@@ -392,11 +402,33 @@ const moveToCompanyLogin = async () => {
     color: #f7fafc;
 }
 .logo-preview-thumb {
-    width: 100%;
-    height: 100%;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
     border-radius: 14px;
 }
+.upload-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 40px;
+}
+.upload-img-button {
+    width: 55%;
+    height: 55px;
+    border-radius: 30px;
+    background-color: #0000ff;
+    color: #ffffff;
+    border: 1px solid #0000ff;
+    font-size: 16px;
+    margin-top: 40px;
+    cursor: pointer;
+
+} .upload-img-button:disabled {
+    background-color: #949494;
+    cursor: not-allowed;
+  }
 @media (max-width: 900px) {
     .form-card {
         width: 85%;
