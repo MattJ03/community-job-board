@@ -28,6 +28,9 @@
         <div class="job-description-wrapper">
             <span> {{ props.listing.description }}</span>
         </div>
+        <div class="pay-view-row">
+            <span class="listing-pay"> {{ payFormat(props.listing.salary) }}</span>
+        </div>
     </div>
 </template>
 <script setup>
@@ -44,6 +47,13 @@ const props = defineProps({
         required: true,
     }
 });
+
+function payFormat(payment) {
+    return Intl.NumberFormat('en-gb', {
+    style: 'currency',
+        currency: 'GBP',
+    }).format(payment);
+}
 </script>
 <style scoped>
 .listing-card {
@@ -132,5 +142,13 @@ const props = defineProps({
 .job-description-wrapper span {
     color: #A9B4C7;
     padding: 12px 20px;
+}
+.pay-view-row {
+    display: flex;
+    flex-direction: row;
+    padding-left: 12px;
+    padding-top: 18px;
+    color: #f7fafc;
+    font-size: 16px;
 }
 </style>

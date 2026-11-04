@@ -2,7 +2,7 @@
     <div class="container">
         <div class="top-of-screen">
         <div class="welcome-header">
-            <h2>Jobs Across the county</h2>
+            <h2>Jobs Across the country</h2>
             <span class="cjb-title">NI Companies</span>
         </div>
             <div class="search-row">
