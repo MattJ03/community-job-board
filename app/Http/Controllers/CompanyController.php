@@ -85,6 +85,6 @@ class CompanyController extends Controller
             'message' => 'company logo created successfully',
         ]);
 
-
     }
+
 }

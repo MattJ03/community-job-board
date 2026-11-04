@@ -22,6 +22,13 @@
                     <span class="industry-bubble" v-for="industry in industries" :key="industry"> {{ industry }} </span>
             </div>
         </div>
+        <div class="listing-rows">
+            <ListingCard
+                v-for="listing in listingStore.totalListings"
+                :listing="listing"
+                id="listing.id"
+                />
+        </div>
     </div>
 </template>
 <script setup>
@@ -54,6 +61,9 @@ const cancelSearch = () => {
 };
 
 console.log(userName.value);
+onMounted(async () => {
+  await listingStore.getAllListings();
+});
 </script>
 <style scoped>
 .container {
@@ -188,5 +198,10 @@ console.log(userName.value);
 }
 .industry-bubble:focus {
     background-color: #4a5568;
+}
+.listing-rows {
+    display: grid;
+    flex-direction: row;
+
 }
 </style>

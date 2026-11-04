@@ -37,7 +37,7 @@ class ListingController extends Controller
             });
         }
 
-        $listings = $query->orderBy('created_at', 'desc');
+        $listings = $query->orderBy('created_at', 'desc')->with('company');
         if($listings->count() <= 0) {
             return response()->json([
                 'listings' => $listings,
