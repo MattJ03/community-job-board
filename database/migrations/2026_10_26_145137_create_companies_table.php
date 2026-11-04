@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('industry');
             $table->string('phone_number');
             $table->string('email');
+            $table->string('logo')->nullable();
             $table->string('password');
             $table->timestamps();
         });

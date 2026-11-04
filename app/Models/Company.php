@@ -13,7 +13,7 @@ class Company extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    protected $fillable = ['name', 'number_of_employees', 'industry', 'phone_number', 'email', 'password'];
+    protected $fillable = ['name', 'number_of_employees', 'industry', 'phone_number', 'email', 'logo', 'password'];
     protected $appends = ['account_type'];
 
     public function getAccountTypeAttribute() {
