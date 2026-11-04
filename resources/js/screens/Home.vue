@@ -32,7 +32,7 @@ import searchImg from '../assets/searchImg.png';
 import x from '../assets/x.png';
 import location from '../assets/location.png';
 import { useListingStore } from "../stores/ListingStore.js";
-
+import ListingCard from "../components/ListingCard.vue";
 
 const loading = ref(false);
 const error = ref('');
