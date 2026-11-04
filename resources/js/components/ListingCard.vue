@@ -21,7 +21,9 @@
             <img :src="hybrid" class="laptop-img" alt="hybrid"/>
             <span class="work-from-answer">Hybrid</span>
         </div>
-
+        <div class="job-description-wrapper">
+            <span> {{ props.listing.description }}</span>
+        </div>
     </div>
 </template>
 <script setup>
@@ -47,6 +49,11 @@ const props = defineProps({
     background-color: #0F172A;
     border: 1px solid #0F172A;
     border-radius: 10px;
+    padding-bottom: 20px;
+}
+.listing-card:hover {
+    cursor: pointer;
+    border: 1px solid #ffffff;
 }
 .top-listing {
     display: flex;
@@ -96,5 +103,19 @@ const props = defineProps({
 }
 .work-from-answer {
     color: #f7fafc;
+}
+.job-description-wrapper {
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 14px;
+    width: 90%;
+    height: 100px;
+    background-color: #1A2540;
+    padding-bottom: 12px;
+}
+.job-description-wrapper span {
+    color: #A9B4C7;
+    padding: 12px 20px;
 }
 </style>
