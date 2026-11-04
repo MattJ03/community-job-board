@@ -29,7 +29,9 @@
             <span> {{ props.listing.description }}</span>
         </div>
         <div class="pay-view-row">
-            <span class="listing-pay"> {{ payFormat(props.listing.salary) }}</span>
+            <span v-if="props.listing.salary" class="listing-pay">Salary: {{ payFormat(props.listing.salary) }}</span>
+            <span v-if="props.listing.hourly" class="listing-pay"> {{ payFormat(props.listing.hourly) }}</span>
+            <span class="view-listing">View listing →</span>
         </div>
     </div>
 </template>
@@ -137,18 +139,29 @@ function payFormat(payment) {
     width: 90%;
     height: 100px;
     background-color: #1A2540;
-    padding-bottom: 12px;
+    padding-bottom: 18px;
 }
 .job-description-wrapper span {
     color: #A9B4C7;
     padding: 12px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .pay-view-row {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     padding-left: 12px;
     padding-top: 18px;
     color: #f7fafc;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 12px;
+}
+.view-listing {
+    font-weight: lighter;
+    color: #F28A2E;
     font-size: 16px;
+    border-bottom: 1px solid #F28A2E;
 }
 </style>
