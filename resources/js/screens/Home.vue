@@ -13,10 +13,13 @@
             </div>
             <div class="filter-job-wrapper">
                 <img :src="location" class="locationImg" alt="location"/>
-                <select class="counties-dropdown">
-                    <option v-for="county in counties"> {{ county }} </option>
+                <select class="counties-dropdown" v-model="filterDetails.location">
+                    <option class="location-value" v-for="county in counties"> {{ county }} </option>
                 </select>
             </div>
+            </div>
+            <div class="filter-industries">
+                    <span class="industry-bubble" v-for="industry in industries" :key="industry"> {{ industry }} </span>
             </div>
         </div>
     </div>
@@ -35,6 +38,13 @@ const search = ref('');
 const authStore = useAuthStore();
 const userName = ref(authStore.user.name);
 const counties = ref(['Fermanagh', 'Antrim', 'Tyrone', 'Londonderry', 'Armagh', 'Down']);
+const industries = ref(['Software', 'Plumbing', 'Electrical', 'Mechanical', 'Gardening', 'Design', 'Moving', 'Transport', 'Roofing', 'Carpentry', 'Marketing', 'Business', 'Retail', 'Construction', 'Hospitality']);
+const filterDetails = reactive({
+    location: '',
+    search: '',
+});
+
+
 
 const cancelSearch = () => {
     search.value = '';
@@ -79,6 +89,7 @@ console.log(userName.value);
     align-items: center;
     width: 100%;
     flex-direction: row;
+    padding-bottom: 40px;
 }
 .search-job-wrapper {
     display: flex;
@@ -99,6 +110,9 @@ console.log(userName.value);
     border: 1px solid #f7fafc;
     border-right: 1px solid #0F172A;
     width: 100%;
+}
+.search-input:hover {
+    border: 1px solid #E3963E;
 }
 .searchImg {
     position: absolute;
@@ -124,7 +138,6 @@ console.log(userName.value);
     flex-direction: row;
 }
 .counties-dropdown {
-
     display: flex;
     align-items: center;
     height: 45px;
@@ -135,6 +148,13 @@ console.log(userName.value);
     z-index: 1;
     border-radius: 0px 30px 30px 0px;
     width: 100%;
+    cursor: pointer;
+}
+.location-value {
+    background-color: #0F172A;
+    color: #f7fafc;
+    border-radius: 14px;
+    cursor: pointer;
 }
 .locationImg {
     position: absolute;
@@ -142,5 +162,20 @@ console.log(userName.value);
     width: 16px;
     padding-left: 8px;
     z-index: 11;
+}
+.filter-industries {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 65%;
+}
+.industry-bubble {
+    color: #f7fafc;
+    padding: 6px 6px;
+    border-radius: 20px;
+    border: 1px solid #f7fafc;
+
 }
 </style>
