@@ -11,6 +11,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background: #ffffff;
+    background: #f3f5f8;
 }
 </style>

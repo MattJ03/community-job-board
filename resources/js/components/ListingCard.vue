@@ -136,6 +136,7 @@ function payFormat(payment) {
     margin: auto;
     margin-top: 20px;
     border-radius: 14px;
+    border: 1px solid #0000B3;
     width: 90%;
     height: 100px;
     background-color: #1A2540;
