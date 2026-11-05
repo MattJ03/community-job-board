@@ -20,7 +20,9 @@
                 <button class="apply-filters-btn" @click="filterListings()">Show jobs</button>
             </div>
             <div class="filter-industries">
-                    <span class="industry-bubble" v-for="industry in industries" :key="industry" @click="filterDetails.industry = industry"> {{ industry }} </span>
+                    <span class="industry-bubble" v-for="industry in industries" :key="industry" @click="filterDetails.industry = industry"
+                    :class="{ active: filterDetails.industry === industry}"
+                    > {{ industry }} </span>
             </div>
         </div>
         <div class="listing-rows">
@@ -64,13 +66,13 @@ watch(search, async (newSearch, oldSearch) => {
         await listingStore.getAllListings({
             search: search.value,
         });
-        }, 500)
-
+        }, 400)
     }
 });
 const cancelSearch = async () => {
     search.value = '';
     filterDetails.location = '';
+    filterDetails.industry = '';
     await listingStore.getAllListings();
 };
 
@@ -243,7 +245,7 @@ const filterListings = async () => {
     cursor: pointer;
     transition: 0.2s;
 }
-.industry-bubble:focus {
+.industry-bubble.active {
     background-color: #4a5568;
 }
 .listing-rows {
