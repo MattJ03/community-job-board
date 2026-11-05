@@ -82,4 +82,18 @@ class AuthController extends Controller
         ]);
     }
 
+    public function me(Request $request) {
+        $loggedIn = auth()->user();
+        if(!$loggedIn) {
+            return response()->json([
+                'message' => 'user not found',
+            ]);
+        }
+
+        return response()->json([
+            'logged_in' => $loggedIn,
+        ]);
+    }
+
+
 }
