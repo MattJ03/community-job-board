@@ -279,6 +279,9 @@ const filterListings = async () => {
     .filter-job-wrapper {
         width: 40%;
     }
+    .counties-dropdown {
+        padding-left: 24px;
+    }
     .cancel-search-img {
         padding-right: 0px;
     }
