@@ -98,17 +98,22 @@ const filterListings = async () => {
  }
 
  const getMoreListings = async () => {
+
+    if(loading.value) return;
     loading.value = true;
     try {
-        page.value++;
         await listingStore.getAllListings({
             location: filterDetails.location || null,
             industry: filterDetails.industry || null,
             search: search.value || null,
            page: page.value,
         });
+        page.value++;
     } catch(err) {
         error.value = err.response?.data?.message || 'failed to get more listings';
+    }
+    finally {
+        loading.value = false;
     }
  }
 

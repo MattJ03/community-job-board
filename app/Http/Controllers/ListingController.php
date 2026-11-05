@@ -48,7 +48,7 @@ class ListingController extends Controller
             ]);
         }
 
-        $listings = $listings->paginate(20);
+        $listings = $listings->paginate(12);
         foreach($listings as $listing) {
             $listing->increment('views');
         }
