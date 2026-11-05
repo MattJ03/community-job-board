@@ -1,4 +1,5 @@
 <template>
+    <NavBar></NavBar>
     <div class="container">
         <div class="top-of-screen">
         <div class="welcome-header">
@@ -44,6 +45,9 @@ import x from '../assets/x.png';
 import location from '../assets/location.png';
 import { useListingStore } from "../stores/ListingStore.js";
 import ListingCard from "../components/ListingCard.vue";
+import api from "../axios.js";
+import NavBar from "../components/NavBar.vue";
+
 
 const loading = ref(false);
 const error = ref('');
@@ -80,6 +84,8 @@ const cancelSearch = async () => {
 console.log(userName.value);
 onMounted(async () => {
   await listingStore.getAllListings();
+    const res = await api.get('me');
+
 });
 const filterListings = async () => {
     loading.value = true;
