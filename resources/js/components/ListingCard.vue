@@ -64,12 +64,14 @@ function payFormat(payment) {
     width: 100%;
     background-color: #0F172A;
     border: 1px solid #0F172A;
+    transition: transform 0.3ms ease-in-out;
     border-radius: 10px;
     padding-bottom: 20px;
 }
 .listing-card:hover {
     cursor: pointer;
     border: 1px solid #ffffff;
+    transform: scale(1.05);
 }
 .top-listing {
     display: flex;
