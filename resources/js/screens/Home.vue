@@ -24,6 +24,7 @@
             </div>
         </div>
         <div class="listing-rows">
+            <h2 v-if="!listingStore.totalListings" class="no-listing-text">Not find what your looking for? Try different filters.</h2>
             <ListingCard
                 v-for="listing in listingStore.totalListings"
                 :listing="listing"
@@ -33,7 +34,7 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive, computed, onMounted } from "vue";
+import {ref, reactive, computed, onMounted, watch} from "vue";
 import router from "../router/index.js";
 import { useAuthStore } from "../stores/AuthStore.js";
 import searchImg from '../assets/searchImg.png';
@@ -56,6 +57,17 @@ const filterDetails = reactive({
     search: '',
 });
 
+watch(search, async (newSearch, oldSearch) => {
+    if(search.value !== oldSearch) {
+        setTimeout(async () => {
+
+        await listingStore.getAllListings({
+            search: search.value,
+        });
+        }, 500)
+
+    }
+});
 const cancelSearch = async () => {
     search.value = '';
     filterDetails.location = '';
