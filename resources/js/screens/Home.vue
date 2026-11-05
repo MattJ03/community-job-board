@@ -17,6 +17,7 @@
                     <option class="location-value" v-for="county in counties"> {{ county }} </option>
                 </select>
             </div>
+                <button class="apply-filters-btn" @click="filterListings()">Show jobs</button>
             </div>
             <div class="filter-industries">
                     <span class="industry-bubble" v-for="industry in industries" :key="industry" @click="filterDetails.industry = industry"> {{ industry }} </span>
@@ -55,8 +56,10 @@ const filterDetails = reactive({
     search: '',
 });
 
-const cancelSearch = () => {
+const cancelSearch = async () => {
     search.value = '';
+    filterDetails.location = '';
+    await listingStore.getAllListings();
 };
 
 console.log(userName.value);
@@ -68,8 +71,19 @@ onMounted(async () => {
  }, 10000)
 const filterListings = async () => {
     loading.value = true;
-
-}
+    try {
+    await listingStore.getAllListings({
+        location: filterDetails.location || null,
+        industry: filterDetails.industry || null,
+        search: search.value || null,
+    });
+   } catch (err) {
+        error.value = err.response?.data?.message || 'failed to get total listings';
+    }
+    finally {
+        loading.value = false;
+    }
+ }
 </script>
 <style scoped>
 .container {
@@ -108,6 +122,7 @@ const filterListings = async () => {
     align-items: center;
     width: 100%;
     flex-direction: row;
+    margin-top: 20px;
     padding-bottom: 40px;
 }
 .search-job-wrapper {
@@ -116,7 +131,6 @@ const filterListings = async () => {
     align-items: center;
     width: 20%;
     max-width: 500px;
-    margin-top: 20px;
     flex-direction: row;
 }
 .search-input {
@@ -153,7 +167,7 @@ const filterListings = async () => {
     align-items: center;
     width: 20%;
     max-width: 500px;
-    margin-top: 20px;
+
     flex-direction: row;
 }
 .counties-dropdown {
@@ -173,6 +187,21 @@ const filterListings = async () => {
     background-color: #0F172A;
     color: #f7fafc;
     border-radius: 14px;
+    cursor: pointer;
+}
+.apply-filters-btn {
+    height: 45px;
+    margin-left: 12px;
+    color: #f7fafc;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 1px solid #0000ff;
+    background-color: #0000ff;
+    padding: 8px 12px;
+
+}
+.apply-filters-btn:hover {
+    background-color: #0000B3;
     cursor: pointer;
 }
 .locationImg {
