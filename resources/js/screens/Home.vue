@@ -202,8 +202,8 @@ onMounted(async () => {
 .listing-rows {
     display: grid;
     width: 99%;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 50px;
     margin-top: 30px;
     padding-left: 12px;
     padding-right: 12px;
