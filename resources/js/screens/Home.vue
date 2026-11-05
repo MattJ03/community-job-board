@@ -58,6 +58,7 @@ const filterDetails = reactive({
     industry: '',
     search: '',
 });
+let page = ref(1);
 
 watch(search, async (newSearch, oldSearch) => {
     if(search.value !== oldSearch) {
@@ -80,9 +81,6 @@ console.log(userName.value);
 onMounted(async () => {
   await listingStore.getAllListings();
 });
- setTimeout(() => {
-     console.log(filterDetails.industry)
- }, 10000)
 const filterListings = async () => {
     loading.value = true;
     try {
@@ -98,6 +96,28 @@ const filterListings = async () => {
         loading.value = false;
     }
  }
+
+ const getMoreListings = async () => {
+    loading.value = true;
+    try {
+        page.value++;
+        await listingStore.getAllListings({
+            location: filterDetails.location || null,
+            industry: filterDetails.industry || null,
+            search: search.value || null,
+           page: page.value,
+        });
+    } catch(err) {
+        error.value = err.response?.data?.message || 'failed to get more listings';
+    }
+ }
+
+ window.onscroll = () => {
+    if(window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        getMoreListings();
+     }
+ }
+
 </script>
 <style scoped>
 .container {

@@ -5,7 +5,7 @@ import api from "../axios.js";
 export const useListingStore = defineStore('listings', () => {
     const loading = ref(false);
     const error = ref('');
-    const totalListings = ref('');
+    const totalListings = ref([]);
     const listing = ref('');
 
     const getAllListings = async (filters = {}) => {
@@ -14,7 +14,14 @@ export const useListingStore = defineStore('listings', () => {
             const res = await api.get('listingsIndex', {
                 params: filters,
             });
-            totalListings.value = res.data.listings.data;
+            const newItems = res.data.listings.data;
+            const currentPage = filters.page || 1;
+
+            if(currentPage === 1) {
+            totalListings.value = newItems;
+                } else {
+            totalListings.value = [...totalListings.value, ...newItems];
+                }
         } catch (err) {
             error.values = error.response?.data?.message || 'failed to get total listings';
         }
