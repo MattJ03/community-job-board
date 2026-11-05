@@ -62,6 +62,7 @@ function payFormat(payment) {
     display: flex;
    flex-direction: column;
     width: 100%;
+
     background-color: #0F172A;
     border: 1px solid #0F172A;
     transition: transform 0.3ms ease-in-out;

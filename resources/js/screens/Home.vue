@@ -3,7 +3,7 @@
         <div class="top-of-screen">
         <div class="welcome-header">
             <h2>Jobs Across the country</h2>
-            <span class="cjb-title">NI Companies</span>
+            <span class="cjb-title">NI Jobs</span>
         </div>
             <div class="search-row">
             <div class="search-job-wrapper">
@@ -256,5 +256,45 @@ const filterListings = async () => {
     margin-top: 30px;
     padding-left: 12px;
     padding-right: 12px;
+}
+
+@media (max-width: 900px) {
+    .cjb-title {
+        font-size: 40px;
+
+    }
+    .top-of-screen {
+        width: 100%;
+    }
+    .search-row {
+        width: 98%;
+    }
+    .search-job-wrapper {
+        width: 40%;
+    }
+    .cancel-search-img {
+        height: 14px;
+        width: 14px;
+    }
+    .filter-job-wrapper {
+        width: 40%;
+    }
+    .cancel-search-img {
+        padding-right: 0px;
+    }
+    .apply-filters-btn {
+        margin-left: 8px;
+    }
+    .filter-industries {
+        width: 98%;
+    }
+    .listing-rows {
+        width: 96%;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 16px;
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 </style>
