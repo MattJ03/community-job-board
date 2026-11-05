@@ -19,7 +19,7 @@
             </div>
             </div>
             <div class="filter-industries">
-                    <span class="industry-bubble" v-for="industry in industries" :key="industry"> {{ industry }} </span>
+                    <span class="industry-bubble" v-for="industry in industries" :key="industry" @click="filterDetails.industry = industry"> {{ industry }} </span>
             </div>
         </div>
         <div class="listing-rows">
@@ -51,10 +51,9 @@ const counties = ref(['Fermanagh', 'Antrim', 'Tyrone', 'Londonderry', 'Armagh', 
 const industries = ref(['Software', 'Plumbing', 'Electrical', 'Mechanical', 'Gardening', 'Design', 'Moving', 'Transport', 'Roofing', 'Carpentry', 'Marketing', 'Business', 'Retail', 'Construction', 'Hospitality']);
 const filterDetails = reactive({
     location: '',
+    industry: '',
     search: '',
 });
-
-
 
 const cancelSearch = () => {
     search.value = '';
@@ -64,6 +63,13 @@ console.log(userName.value);
 onMounted(async () => {
   await listingStore.getAllListings();
 });
+ setTimeout(() => {
+     console.log(filterDetails.industry)
+ }, 10000)
+const filterListings = async () => {
+    loading.value = true;
+
+}
 </script>
 <style scoped>
 .container {
