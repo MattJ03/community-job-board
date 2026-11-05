@@ -18,6 +18,9 @@ class ListingController extends Controller
         if($request->filled('location')) {
             $query->where('location', $request->location);
         }
+        if($request->filled('industry')) {
+            $query->where('industry', $request->industry);
+        }
         if($request->filled('work_from')) {
             $query->where('work_from', $request->work_from);
         }
