@@ -7,14 +7,14 @@ export const useCompanyAuthStore = defineStore('companies', () => {
    const error = ref('');
    const company = ref(null);
    const token = ref(localStorage.getItem('token'));
-   const isCompany = computed(() => !!company.value);
-
+   const accountType = ref(null);
 
    const registerCompany = async (payload) => {
        loading.value = true;
        try {
            const res = await api.post('registerCompany', payload);
            company.value = res.data.company;
+           accountType.value = res.data.account_type;
        } catch (err) {
            error.value = err.response?.data?.message || 'failed to register company';
        } finally {
@@ -42,7 +42,7 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        error,
        company,
        token,
-       isCompany,
+       accountType,
        registerCompany,
        loginCompany,
    };

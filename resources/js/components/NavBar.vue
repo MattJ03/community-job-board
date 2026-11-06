@@ -7,6 +7,9 @@
         <div class="headings-wrapper">
 
         </div>
+        <div class="buttons-wrapper">
+
+        </div>
     </nav>
 
 </template>
@@ -17,12 +20,12 @@ import logo from '../assets/logo.png';
 
 const loading = ref(false);
 const error = ref(null);
-const role = ref('');
+const accountType = ref('');
 
 onMounted(async () => {
     const res = await api.get('me');
-    role.value = res.data.logged_in.account_type;
-    console.log(role.value);
+    accountType.value = res.data.logged_in.account_type;
+    console.log(accountType.value);
 });
 </script>
 <style scoped>
@@ -30,6 +33,7 @@ onMounted(async () => {
     top: 0;
     display: flex;
     flex-direction: row;
+
     align-items: center;
     height: 70px;
     background-color: #f7fafc;
@@ -43,5 +47,8 @@ onMounted(async () => {
 }
 .headings-wrapper {
     display: flex;
+}
+.buttons-wrapper {
+
 }
 </style>
