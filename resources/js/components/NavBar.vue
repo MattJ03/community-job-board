@@ -8,7 +8,7 @@
 
         </div>
         <div class="buttons-wrapper">
-            <span v-if="accountType === 'company'" class="move-to-upload">Post job</span>
+            <span @click="moveToUpload()" v-if="accountType === 'company'" class="move-to-upload">Post job</span>
         </div>
     </nav>
 
@@ -17,6 +17,8 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import api from "../axios.js";
 import logo from '../assets/logo.png';
+import router from "../router/index.js";
+
 
 const loading = ref(false);
 const error = ref(null);
@@ -27,6 +29,13 @@ onMounted(async () => {
     accountType.value = res.data.account.account_type;
     console.log(accountType.value);
 });
+
+const moveToUpload = async () => {
+    loading.value = true;
+    await router.push({
+        name: 'upload listing',
+    });
+}
 </script>
 <style scoped>
 .nav-bar {

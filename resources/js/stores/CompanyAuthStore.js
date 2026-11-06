@@ -42,7 +42,8 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        try {
            const res = await api.get('me');
            company.value = res.data.company;
-           accountType.value = res.data.account_type;
+           accountType.value = res.data.account.account_type;
+           console.log(accountType.value + ' as of  store method');
        } catch (err) {
            error.value = err.response?.data?.message || 'failed to get current account info';
        } finally {
