@@ -1,7 +1,7 @@
 <template>
     <nav class="nav-bar">
         <div class="logo-wrapper">
-            <img :src="logo" class="logo-img" alt="logo"/>
+            <img :src="logo" class="logo-img" @click="moveToHome()" alt="logo"/>
         </div>
 
         <div class="headings-wrapper">
@@ -30,6 +30,12 @@ onMounted(async () => {
     console.log(accountType.value);
 });
 
+const moveToHome = async ()=> {
+    await router.push({
+        name: 'home',
+    });
+}
+
 const moveToUpload = async () => {
     loading.value = true;
     await router.push({
@@ -55,6 +61,7 @@ const moveToUpload = async () => {
 }
 .logo-img {
    height: 75px;
+    cursor: pointer;
 }
 .headings-wrapper {
     display: flex;
