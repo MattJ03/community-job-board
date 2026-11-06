@@ -8,7 +8,7 @@
 
         </div>
         <div class="buttons-wrapper">
-
+            <span v-if="accountType === 'company'" class="move-to-upload">Post job</span>
         </div>
     </nav>
 
@@ -33,10 +33,11 @@ onMounted(async () => {
     top: 0;
     display: flex;
     flex-direction: row;
-
+    width: 100%;
     align-items: center;
+    justify-content: space-between;
     height: 70px;
-    background-color: #f7fafc;
+    background-color: #0F172A;
 }
 .logo-wrapper {
     height: 90%;
@@ -49,6 +50,17 @@ onMounted(async () => {
     display: flex;
 }
 .buttons-wrapper {
-
+    display: flex;
+    justify-content: right;
+    padding-right: 18px;
+}
+.move-to-upload {
+    color: #f7fafc;
+    border-bottom: 1px solid #f7fafc;
+}
+.move-to-upload:hover {
+    cursor: pointer;
+    color: #ccd0d5;
+    border-bottom: 1px solid #ccd0d5;
 }
 </style>
