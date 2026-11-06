@@ -7,6 +7,8 @@ export const useCompanyAuthStore = defineStore('companies', () => {
    const error = ref('');
    const company = ref(null);
    const token = ref(localStorage.getItem('token'));
+   const isCompany = computed(() => !!company.value);
+
 
    const registerCompany = async (payload) => {
        loading.value = true;
@@ -28,7 +30,7 @@ export const useCompanyAuthStore = defineStore('companies', () => {
            token.value = res.data.token;
            localStorage.setItem('token', token.value);
        } catch (err) {
-           error.value = error.response?.data?.message || 'failed to login to company account';
+           error.value = err.response?.data?.message || 'failed to login to company account';
            throw err;
        } finally {
            loading.value = false;
@@ -40,6 +42,7 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        error,
        company,
        token,
+       isCompany,
        registerCompany,
        loginCompany,
    };
