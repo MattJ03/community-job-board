@@ -13,7 +13,7 @@ const routes = [
     { path: '/home', component: Home, name: 'home'},
     { path: '/registerCompany', component: CompanyRegister, name: 'register company' },
     { path: '/loginCompany', component: CompanyLogin, name: 'login company' },
-    { path: '/uploadListing', component: UploadListing, name: 'upload listing' },
+    { path: '/uploadListing', component: UploadListing, name: 'upload listing', meta:{role: 'company'} },
 ];
 
 const router = createRouter({
@@ -22,6 +22,20 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+    const companyStore = useCompanyAuthStore();
+    await companyStore.getCurrentAccount();
 
-})
+    if(!to.meta.role) {
+        return true;
+    }
+    if(to.meta.role === 'company' && companyStore.accountType === 'company') {
+            return true;
+    }
+    else {
+            await router.push({
+                name: 'login company',
+            });
+        }
+
+});
 export default router;

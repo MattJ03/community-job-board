@@ -42,6 +42,7 @@ onMounted(async () => {
 .logo-wrapper {
     height: 90%;
     overflow: hidden;
+    padding-left: 18px;
 }
 .logo-img {
    height: 75px;

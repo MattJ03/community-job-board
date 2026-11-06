@@ -81,7 +81,7 @@ const cancelSearch = async () => {
     await listingStore.getAllListings();
 };
 
-console.log(userName.value);
+
 onMounted(async () => {
   await listingStore.getAllListings();
     const res = await api.get('me');
