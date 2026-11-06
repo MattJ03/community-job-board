@@ -37,6 +37,19 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        }
    }
 
+   const getCurrentAccount = async () => {
+       loading.value = true;
+       try {
+           const res = await api.get('me');
+           company.value = res.data.company;
+           accountType.value = res.data.account_type;
+       } catch (err) {
+           error.value = err.response?.data?.message || 'failed to get current account info';
+       } finally {
+           loading.value = false;
+       }
+   }
+
    return {
        loading,
        error,
@@ -45,6 +58,7 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        accountType,
        registerCompany,
        loginCompany,
+       getCurrentAccount,
    };
 });
 

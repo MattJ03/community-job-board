@@ -24,7 +24,7 @@ const accountType = ref('');
 
 onMounted(async () => {
     const res = await api.get('me');
-    accountType.value = res.data.logged_in.account_type;
+    accountType.value = res.data.account.account_type;
     console.log(accountType.value);
 });
 </script>

@@ -83,16 +83,16 @@ class AuthController extends Controller
     }
 
     public function me(Request $request) {
-        $loggedIn = auth('sanctum')->user();
+        $account = auth('sanctum')->user();
 
-        if(!$loggedIn) {
+        if(!$account) {
             return response()->json([
                 'message' => 'user not found',
             ]);
         }
 
         return response()->json([
-            'logged_in' => $loggedIn,
+            'account' => $account,
         ]);
     }
 
