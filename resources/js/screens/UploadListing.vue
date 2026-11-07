@@ -26,7 +26,7 @@
             <div class="location-row">
                 <div class="field">
                     <span class="field-text">Location</span>
-                    <select class="field-dropdown-location">
+                    <select class="field-dropdown-location" v-model="form.location">
                         <optgroup label="Towns & Cities">
                         <option v-for="location in locations"> {{ location }}</option>
                         </optgroup>
@@ -38,13 +38,11 @@
                 <div class="field">
                     <span class="field-text">Work from</span>
                     <div class="work-from-wrapper">
-                        <button class="work-type-button">Remote</button>
-                        <button class="work-type-button">Hybrid</button>
-                        <button class="work-type-button">On-site</button>
-
+                        <button class="work-type-button" @click="form.work_from = 'remote'">Remote</button>
+                        <button class="work-type-button" @click="form.work_from = 'hybrid'">Hybrid</button>
+                        <button class="work-type-button" @click="form.work_from = 'off-site'">On-site</button>
                     </div>
                 </div>
-
             </div>
                 <div class="horizontal-line"></div>
             </div>
@@ -54,9 +52,17 @@
                 <div class="field">
                     <span class="field-text">Payment type</span>
                     <div class="hour-salary-wrapper">
-                        <button class="hour-salary-btn">Hourly role</button>
-                        <button class="hour-salary-btn">Salary role</button>
+                        <button class="hour-salary-btn" @click="changePaymentType()">Hourly role</button>
+                        <button class="hour-salary-btn" @click="changePaymentType()">Salary role</button>
                     </div>
+                </div>
+                <div class="field" v-if="!isSalary">
+                    <span class="field-text">Approximate pay (per hour)</span>
+                    <input type="number" class="field-input-title"/>
+                </div>
+                <div class="field" v-if="isSalary">
+                    <span class="field-text">Approximate salary</span>
+                    <input type="number" class="field-input-title"/>
                 </div>
             </div>
             </div>
@@ -78,7 +84,21 @@ const form = reactive({
     companyName: '',
     industry: '',
     location: '',
+    work_from: '',
+    hourly: null,
+    salary: null,
 });
+
+const isSalary = ref(true);
+const changePaymentType = () => {
+    if(!isSalary.value) {
+        isSalary.value = true;
+        form.hourly = null;
+    } else {
+        isSalary.value = false;
+        form.salary = null;
+    }
+}
 </script>
 <style scoped>
 .container {
