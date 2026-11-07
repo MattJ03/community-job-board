@@ -20,9 +20,10 @@
                 > {{ industry }}</span>
             </div>
             </div>
-
-            <div class="industry-field">
-                <span class="field-text-header">Where and How</span>
+            <div class="horizontal-line"></div>
+            <div class="location-work-from-topic">
+            <span class="field-text-header">Where and How</span>
+            <div class="location-row">
                 <div class="field">
                     <span class="field-text">Location</span>
                     <select class="field-dropdown-location">
@@ -34,6 +35,30 @@
                         </optgroup>
                     </select>
                 </div>
+                <div class="field">
+                    <span class="field-text">Work from</span>
+                    <div class="work-from-wrapper">
+                        <button class="work-type-button">Remote</button>
+                        <button class="work-type-button">Hybrid</button>
+                        <button class="work-type-button">On-site</button>
+
+                    </div>
+                </div>
+
+            </div>
+                <div class="horizontal-line"></div>
+            </div>
+            <div class="payment-wrapper">
+                <span class="field-text-header">Pay</span>
+            <div class="pay-row">
+                <div class="field">
+                    <span class="field-text">Payment type</span>
+                    <div class="hour-salary-wrapper">
+                        <button class="hour-salary-btn">Hourly role</button>
+                        <button class="hour-salary-btn">Salary role</button>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -52,6 +77,7 @@ const form = reactive({
     title: '',
     companyName: '',
     industry: '',
+    location: '',
 });
 </script>
 <style scoped>
@@ -105,9 +131,7 @@ const form = reactive({
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    gap: 8px;
-
-
+    gap: 12px;
 }
 .industry-bubble {
     color: #f7fafc;
@@ -136,6 +160,20 @@ const form = reactive({
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #f7fafc;
+}
+.location-work-from-topic {
+    display: flex;
+    flex-direction: column;
+
+}
+.location-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: #f7fafc;
+    font-size: 16px;
 }
 .field-dropdown-location {
     background-color: #1a2542;
@@ -145,7 +183,63 @@ const form = reactive({
     border: 1px solid #0000B3;
     color: #f7fafc;
     font-size: 16px;
-
     padding-left: 8px;
+}
+.work-from-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    width: 100%;
+    background-color: #1a2542;
+    border: 1px solid #0000B3;
+    border-radius: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.work-type-button {
+    font-size: 16px;
+    background-color: transparent;
+    width: 100%;
+    color: #f7fafc;
+    height: 85%;
+    border: none;
+    border-radius: 999px;
+    padding-left: 10px;
+}
+.work-type-button:hover {
+    color: #1c1e21;
+    background-color: #f7fafc;
+    cursor: pointer;
+}
+.horizontal-line {
+    border: 1px solid #1a202c;
+    margin-top: 10px;
+}
+.pay-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+    width: 100%;
+}
+.hour-salary-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.hour-salary-btn {
+    width: 50%;
+    height: 55px;
+    border-radius: 12px;
+    background-color: transparent;
+    border: 1px solid #0000B3;
+    color: #f7fafc;
+    font-size: 15px;
+}
+.hour-salary-btn:hover {
+    color: #1c1e21;
+    background-color: #f7fafc;
+    cursor: pointer;
 }
 </style>
