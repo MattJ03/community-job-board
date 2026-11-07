@@ -52,8 +52,12 @@
                 <div class="field">
                     <span class="field-text">Payment type</span>
                     <div class="hour-salary-wrapper">
-                        <button class="hour-salary-btn" @click="changePaymentType()">Hourly role</button>
-                        <button class="hour-salary-btn" @click="changePaymentType()">Salary role</button>
+                        <button class="hour-salary-btn" @click="isSalary = false; form.salary = null;"
+                        :class="{ active: !isSalary}"
+                        >Hourly role</button>
+                        <button class="hour-salary-btn" @click="isSalary = true; form.hourly = null;"
+                        :class="{ active: isSalary}"
+                        >Salary role</button>
                     </div>
                 </div>
                 <div class="field" v-if="!isSalary">
@@ -90,15 +94,6 @@ const form = reactive({
 });
 
 const isSalary = ref(true);
-const changePaymentType = () => {
-    if(!isSalary.value) {
-        isSalary.value = true;
-        form.hourly = null;
-    } else {
-        isSalary.value = false;
-        form.salary = null;
-    }
-}
 </script>
 <style scoped>
 .container {
@@ -163,10 +158,11 @@ const changePaymentType = () => {
 .industry-bubble:hover {
     background-color: #4a5568;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.7s;
 }
 .industry-bubble.active {
     background-color: #f7fafc;
+    transition: 0.7s;
     color: #1c1e21;
 }
 .industry-field {
@@ -255,11 +251,15 @@ const changePaymentType = () => {
     background-color: transparent;
     border: 1px solid #0000B3;
     color: #f7fafc;
-    font-size: 15px;
+    font-size: 16px;
 }
 .hour-salary-btn:hover {
     color: #1c1e21;
     background-color: #f7fafc;
     cursor: pointer;
+}
+.hour-salary-btn.active {
+    color: #1c1e21;
+    background-color: #f7fafc;
 }
 </style>
