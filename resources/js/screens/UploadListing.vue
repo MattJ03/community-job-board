@@ -88,11 +88,11 @@
                 <div class="contact-list">
                     <div class="contact-field">
                         <span class="field-text">Email</span>
-                    <input class="field-input-title"/>
+                    <input class="field-input-title" v-model="placeholderContact.email"/>
                     </div>
                     <div class="contact-field">
                         <span class="field-text">Company number</span>
-                    <input class="field-input-title"/>
+                    <input class="field-input-title" v-model="placeholderContact.phone_number"/>
                     </div>
                 </div>
             </div>
@@ -101,12 +101,14 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive, computed, onMounted } from "vue";
+import {ref, reactive, computed, onMounted, watch} from "vue";
+import { useCompanyAuthStore } from "../stores/CompanyAuthStore.js";
 import NavBar from "../components/NavBar.vue";
+import {storeToRefs} from "pinia";
 
 const loading = ref(false);
 const error = ref('');
-
+const companyStore = useCompanyAuthStore();
 const industries = ref(['Software', 'Plumbing', 'Electrical', 'Mechanical', 'Gardening', 'Design', 'Moving', 'Transport', 'Roofing', 'Carpentry', 'Marketing', 'Business', 'Retail', 'Construction', 'Hospitality']);
 const locations = ref(['Belfast', 'Londonderry', 'Lisburn', 'Newry', 'Armagh', 'Bangor', 'Craigavon', 'Ballymena', 'Omagh', 'Enniskillen', 'Coleraine', 'Newtownards', 'Antrim (town)', ])
 const counties = ref(['Fermanagh', 'Antrim', 'Tyrone', 'Londonderry', 'Armagh', 'Down']);
@@ -119,8 +121,28 @@ const form = reactive({
     hourly: null,
     salary: null,
 });
+const { company } = storeToRefs(companyStore);
 
+const placeholderContact = reactive({
+    email: '',
+    phone_number: '',
+});
+watch(company, (newValue) => {
+    if(newValue) {
+        Object.assign(placeholderContact, {
+            email: newValue.email || '',
+            phone_number: newValue.phone_number || '',
+        });
+    }
+}, {immediate: true});
+
+console.log(placeholderContact.email)
 const isSalary = ref(true);
+
+onMounted(async () => {
+    await companyStore.getCurrentAccount();
+    console.log(company.value);
+})
 </script>
 <style scoped>
 .container {

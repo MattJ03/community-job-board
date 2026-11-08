@@ -41,7 +41,7 @@ export const useCompanyAuthStore = defineStore('companies', () => {
        loading.value = true;
        try {
            const res = await api.get('me');
-           company.value = res.data.company;
+           company.value = res.data.account;
            accountType.value = res.data.account.account_type;
            console.log(accountType.value + ' as of  store method');
        } catch (err) {
