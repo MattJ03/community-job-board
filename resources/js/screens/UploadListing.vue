@@ -70,6 +70,11 @@
                 </div>
             </div>
             </div>
+            <div class="job-description-row">
+                <span class="field-text-header">Description</span>
+                <span class="field-text">Job description</span>
+                <textarea class="description-field"/>
+            </div>
         </div>
     </div>
 </template>
@@ -262,4 +267,24 @@ const isSalary = ref(true);
     color: #1c1e21;
     background-color: #f7fafc;
 }
+.job-description-row {
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    color: #f7fafc;
+    width: 100%;
+
+}
+.description-field {
+    width: 100%;
+    font-size: 15px;
+    padding-left: 12px;
+    padding-top: 10px;
+    border-radius: 12px;
+    background-color: #1a2542;
+    border: 1px solid #0000B3;
+    height: 220px;
+    color: #f7fafc;
+}
+
 </style>
