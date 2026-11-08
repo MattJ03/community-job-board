@@ -70,10 +70,24 @@
                 </div>
             </div>
             </div>
+            <div class="horizontal-line"></div>
             <div class="job-description-row">
                 <span class="field-text-header">Description</span>
                 <span class="field-text">Job description</span>
-                <textarea class="description-field"/>
+                <textarea class="description-field" maxlength="2000"/>
+            </div>
+            <span class="field-text-header">Contact info</span>
+            <div class="contact-row">
+                <div class="contact-list">
+                    <div class="contact-field">
+                        <span class="field-text">Email</span>
+                    <input class="field-input-title"/>
+                    </div>
+                    <div class="contact-field">
+                        <span class="field-text">Company number</span>
+                    <input class="field-input-title"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -113,7 +127,7 @@ const isSalary = ref(true);
     margin: auto;
     margin-top: 80px;
     background-color: #0F172A;
-    gap: 40px;
+    gap: 30px;
     width: 45%;
     padding-left: 32px;
     padding-right: 32px;
@@ -134,6 +148,8 @@ const isSalary = ref(true);
     width: 45%;
 }
 .field-text {
+    color: #f7fafc;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
 }
@@ -273,6 +289,7 @@ const isSalary = ref(true);
     flex-direction: column;
     color: #f7fafc;
     width: 100%;
+    padding-bottom: 16px;
 
 }
 .description-field {
@@ -286,5 +303,20 @@ const isSalary = ref(true);
     height: 220px;
     color: #f7fafc;
 }
-
+.contact-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 40%;
+}
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
 </style>
