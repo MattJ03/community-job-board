@@ -38,9 +38,15 @@
                 <div class="field">
                     <span class="field-text">Work from</span>
                     <div class="work-from-wrapper">
-                        <button class="work-type-button" @click="form.work_from = 'remote'">Remote</button>
-                        <button class="work-type-button" @click="form.work_from = 'hybrid'">Hybrid</button>
-                        <button class="work-type-button" @click="form.work_from = 'off-site'">On-site</button>
+                        <button class="work-type-button" @click="form.work_from = 'remote'"
+                        :class="{ active: form.work_from === 'remote'}"
+                        >Remote</button>
+                        <button class="work-type-button" @click="form.work_from = 'hybrid'"
+                        :class="{ active: form.work_from === 'hybrid'}"
+                        >Hybrid</button>
+                        <button class="work-type-button" @click="form.work_from = 'off-site'"
+                        :class="{ active: form.work_from === 'off-site'}"
+                        >On-site</button>
                     </div>
                 </div>
             </div>
@@ -76,6 +82,7 @@
                 <span class="field-text">Job description</span>
                 <textarea class="description-field" maxlength="2000"/>
             </div>
+            <div class="contact-wrapper">
             <span class="field-text-header">Contact info</span>
             <div class="contact-row">
                 <div class="contact-list">
@@ -88,6 +95,7 @@
                     <input class="field-input-title"/>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -249,6 +257,11 @@ const isSalary = ref(true);
     background-color: #f7fafc;
     cursor: pointer;
 }
+.work-type-button.active {
+    color: #1c1e21;
+    background-color: #f7fafc;
+    cursor: pointer;
+}
 .horizontal-line {
     border: 1px solid #1a202c;
     margin-top: 10px;
@@ -307,6 +320,11 @@ const isSalary = ref(true);
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+
 }
 .contact-list {
     display: flex;
