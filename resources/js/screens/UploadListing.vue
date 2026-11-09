@@ -44,7 +44,7 @@
                         <button type="button" class="work-type-button" @click="form.work_from = 'hybrid'"
                         :class="{ active: form.work_from === 'hybrid'}"
                         >Hybrid</button>
-                        <button type="button" class="work-type-button" @click="form.work_from = 'off-site'"
+                        <button type="button" class="work-type-button" @click="form.work_from = 'on-site'"
                         :class="{ active: form.work_from === 'off-site'}"
                         >On-site</button>
                     </div>
