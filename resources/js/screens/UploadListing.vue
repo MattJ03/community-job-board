@@ -87,6 +87,20 @@
                 <span class="field-text-header">Requirements & Qualifications</span>
                 <textarea class="description-field" v-model="form.requirements"/>
             </div>
+            <div class="horizontal-line"></div>
+                <div class="job-description-row">
+                    <span class="field-text-header">Minimum qualifications (optional)</span>
+                    <textarea class="description-field" v-model="form.minimum_qualification"/>
+                </div>
+            <div class="horizontal-line"></div>
+            <div class="field">
+                <span class="field-text">minimum years of relevant experience (optional)</span>
+                <select class="years-of-experience-input">
+                    <option>0</option>
+                    <option v-for="num in oneToTen"> {{ num }}</option>
+                </select>
+
+            </div>
             <div class="contact-wrapper">
             <span class="field-text-header">Contact info</span>
             <div class="contact-row">
@@ -117,6 +131,7 @@ const companyStore = useCompanyAuthStore();
 const industries = ref(['Software', 'Plumbing', 'Electrical', 'Mechanical', 'Gardening', 'Design', 'Moving', 'Transport', 'Roofing', 'Carpentry', 'Marketing', 'Business', 'Retail', 'Construction', 'Hospitality']);
 const locations = ref(['Belfast', 'Londonderry', 'Lisburn', 'Newry', 'Armagh', 'Bangor', 'Craigavon', 'Ballymena', 'Omagh', 'Enniskillen', 'Coleraine', 'Newtownards', 'Antrim (town)', ])
 const counties = ref(['Fermanagh', 'Antrim', 'Tyrone', 'Londonderry', 'Armagh', 'Down']);
+const oneToTen = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 const form = reactive({
     title: '',
     companyName: '',
@@ -127,7 +142,8 @@ const form = reactive({
     salary: null,
     description: '',
     requirements: '',
-
+    minimum_qualification: '',
+    years_of_experience: '',
 
 });
 const { company } = storeToRefs(companyStore);
@@ -371,5 +387,16 @@ onMounted(async () => {
 .contact-field input {
     background-color: #4a5568;
     cursor: not-allowed;
+}
+.years-of-experience-input {
+    background-color: #1a2542;
+    height: 45px;
+    width: 25%;
+    border-radius: 14px;
+    border: 1px solid #0000B3;
+    color: #f7fafc;
+    font-size: 16px;
+    cursor: pointer;
+    padding-left: 8px;
 }
 </style>
