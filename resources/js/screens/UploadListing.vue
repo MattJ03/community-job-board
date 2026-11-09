@@ -58,21 +58,21 @@
                 <div class="field">
                     <span class="field-text">Payment type</span>
                     <div class="hour-salary-wrapper">
-                        <button type="button" class="hour-salary-btn" @click="isSalary = false; form.salary = null;"
+                        <button type="button" class="hour-salary-btn" @click="form.salary = null; isSalary = false"
                         :class="{ active: !isSalary}"
                         >Hourly role</button>
-                        <button type="button" class="hour-salary-btn" @click="isSalary = true; form.hourly = null;"
+                        <button type="button" class="hour-salary-btn" @click="form.hourly = null; isSalary = true"
                         :class="{ active: isSalary}"
                         >Salary role</button>
                     </div>
                 </div>
                 <div class="field" v-if="!isSalary">
                     <span class="field-text">Approximate pay (per hour)</span>
-                    <input type="number" class="field-input-title"/>
+                    <input type="number" v-model="form.hourly" class="field-input-title"/>
                 </div>
                 <div class="field" v-if="isSalary">
                     <span class="field-text">Approximate salary</span>
-                    <input type="number" class="field-input-title"/>
+                    <input type="number" v-model="form.salary" class="field-input-title"/>
                 </div>
             </div>
             </div>
@@ -129,6 +129,9 @@ import { useCompanyAuthStore } from "../stores/CompanyAuthStore.js";
 import NavBar from "../components/NavBar.vue";
 import { storeToRefs } from "pinia";
 import { useListingStore } from "../stores/ListingStore.js";
+import router from "../router/index.js";
+
+
 
 const loading = ref(false);
 const error = ref('');
@@ -179,6 +182,9 @@ const submitListing = async (formValues) => {
     loading.value = true;
     try {
         await listingStore.storeListing(formValues);
+        await router.push({
+            name: 'home',
+        });
     } catch (err) {
         error.value = err.response?.data?.message || 'failed to store listing';
     } finally {

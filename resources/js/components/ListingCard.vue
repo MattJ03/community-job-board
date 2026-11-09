@@ -30,7 +30,7 @@
         </div>
         <div class="pay-view-row">
             <span v-if="props.listing.salary" class="listing-pay">Salary: {{ payFormat(props.listing.salary) }}</span>
-            <span v-if="props.listing.hourly" class="listing-pay"> {{ payFormat(props.listing.hourly) }}</span>
+            <span v-if="props.listing.hourly" class="listing-pay"> {{ payFormat(props.listing.hourly) }} per hour</span>
             <span class="view-listing">View listing →</span>
         </div>
     </div>
