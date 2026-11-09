@@ -80,7 +80,12 @@
             <div class="job-description-row">
                 <span class="field-text-header">Description</span>
                 <span class="field-text">Job description</span>
-                <textarea class="description-field" maxlength="2000"/>
+                <textarea class="description-field" v-model="form.description" maxlength="2000"/>
+            </div>
+            <div class="horizontal-line"></div>
+            <div class="job-description-row">
+                <span class="field-text-header">Job requirements</span>
+                <textarea class="description-field" v-model="form.requirements"/>
             </div>
             <div class="contact-wrapper">
             <span class="field-text-header">Contact info</span>
@@ -88,11 +93,11 @@
                 <div class="contact-list">
                     <div class="contact-field">
                         <span class="field-text">Email</span>
-                    <input class="field-input-title" v-model="placeholderContact.email"/>
+                    <input class="field-input-title" v-model="placeholderContact.email" disabled/>
                     </div>
                     <div class="contact-field">
                         <span class="field-text">Company number</span>
-                    <input class="field-input-title" v-model="placeholderContact.phone_number"/>
+                    <input class="field-input-title" v-model="placeholderContact.phone_number" disabled/>
                     </div>
                 </div>
             </div>
@@ -120,6 +125,10 @@ const form = reactive({
     work_from: '',
     hourly: null,
     salary: null,
+    description: '',
+    requirements: '',
+
+
 });
 const { company } = storeToRefs(companyStore);
 
@@ -358,5 +367,9 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 3px;
+}
+.contact-field input {
+    background-color: #4a5568;
+    cursor: not-allowed;
 }
 </style>
