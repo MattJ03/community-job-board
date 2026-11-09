@@ -171,7 +171,11 @@ const isSalary = ref(true);
 onMounted(async () => {
     await companyStore.getCurrentAccount();
     console.log(company.value);
-})
+});
+
+const submitListing = async () => {
+    loading.value = true;
+}
 </script>
 <style scoped>
 .container {

@@ -30,12 +30,25 @@ export const useListingStore = defineStore('listings', () => {
         }
     }
 
+    const storeListing = async (payload) => {
+        loading.value = true;
+        try {
+            const res = await api.post('storeListing', payload);
+            listing.value = res.data.listing;
+        } catch(err) {
+            error.value = err.response?.data?.message || 'failed to store listing';
+        } finally {
+            loading.value = false;
+        }
+    }
+
     return {
         loading,
         error,
         totalListings,
         listing,
         getAllListings,
+        storeListing,
     };
 
 });
