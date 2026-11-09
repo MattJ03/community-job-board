@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('salary')->nullable();
             $table->decimal('hourly')->nullable();
             $table->string('status')->default('open');
-            $table->unsignedBigInteger('views');
+            $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }

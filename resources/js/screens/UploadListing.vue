@@ -79,12 +79,12 @@
             <div class="horizontal-line"></div>
             <div class="job-description-row">
                 <span class="field-text-header">Description</span>
-                <span class="field-text">Job description</span>
+                <span class="field-text">Job responsabilities</span>
                 <textarea class="description-field" v-model="form.description" maxlength="2000"/>
             </div>
             <div class="horizontal-line"></div>
             <div class="job-description-row">
-                <span class="field-text-header">Job requirements</span>
+                <span class="field-text-header">Requirements & Qualifications</span>
                 <textarea class="description-field" v-model="form.requirements"/>
             </div>
             <div class="contact-wrapper">
