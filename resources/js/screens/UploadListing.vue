@@ -1,7 +1,7 @@
 <template>
     <NavBar></NavBar>
     <div class="container">
-        <form @submit.prevent class="form-card">
+        <form @submit.prevent="submitListing(form)" class="form-card">
             <div class="title-company">
                 <div class="field">
                     <span class="field-text">Role title</span>
@@ -38,13 +38,13 @@
                 <div class="field">
                     <span class="field-text">Work from</span>
                     <div class="work-from-wrapper">
-                        <button class="work-type-button" @click="form.work_from = 'remote'"
+                        <button type="button" class="work-type-button" @click="form.work_from = 'remote'"
                         :class="{ active: form.work_from === 'remote'}"
                         >Remote</button>
-                        <button class="work-type-button" @click="form.work_from = 'hybrid'"
+                        <button type="button" class="work-type-button" @click="form.work_from = 'hybrid'"
                         :class="{ active: form.work_from === 'hybrid'}"
                         >Hybrid</button>
-                        <button class="work-type-button" @click="form.work_from = 'off-site'"
+                        <button type="button" class="work-type-button" @click="form.work_from = 'off-site'"
                         :class="{ active: form.work_from === 'off-site'}"
                         >On-site</button>
                     </div>
@@ -58,10 +58,10 @@
                 <div class="field">
                     <span class="field-text">Payment type</span>
                     <div class="hour-salary-wrapper">
-                        <button class="hour-salary-btn" @click="isSalary = false; form.salary = null;"
+                        <button type="button" class="hour-salary-btn" @click="isSalary = false; form.salary = null;"
                         :class="{ active: !isSalary}"
                         >Hourly role</button>
-                        <button class="hour-salary-btn" @click="isSalary = true; form.hourly = null;"
+                        <button type="button" class="hour-salary-btn" @click="isSalary = true; form.hourly = null;"
                         :class="{ active: isSalary}"
                         >Salary role</button>
                     </div>
@@ -79,7 +79,7 @@
             <div class="horizontal-line"></div>
             <div class="job-description-row">
                 <span class="field-text-header">Description</span>
-                <span class="field-text">Job responsabilities</span>
+                <span class="field-text">Job responsibilities</span>
                 <textarea class="description-field" v-model="form.description" maxlength="2000"/>
             </div>
             <div class="horizontal-line"></div>
@@ -118,7 +118,7 @@
             </div>
             <div class="horizontal-line"></div>
             <div class="buttons-row">
-                <button type="button" class="submit-btn">Post job</button>
+                <button  class="submit-btn">Post job</button>
             </div>
         </form>
     </div>
@@ -127,7 +127,8 @@
 import {ref, reactive, computed, onMounted, watch} from "vue";
 import { useCompanyAuthStore } from "../stores/CompanyAuthStore.js";
 import NavBar from "../components/NavBar.vue";
-import {storeToRefs} from "pinia";
+import { storeToRefs } from "pinia";
+import { useListingStore } from "../stores/ListingStore.js";
 
 const loading = ref(false);
 const error = ref('');
@@ -150,6 +151,7 @@ const form = reactive({
     years_of_experience: '',
 
 });
+const listingStore = useListingStore();
 const { company } = storeToRefs(companyStore);
 
 const placeholderContact = reactive({
@@ -173,8 +175,15 @@ onMounted(async () => {
     console.log(company.value);
 });
 
-const submitListing = async () => {
+const submitListing = async (formValues) => {
     loading.value = true;
+    try {
+        await listingStore.storeListing(formValues);
+    } catch (err) {
+        error.value = err.response?.data?.message || 'failed to store listing';
+    } finally {
+        loading.value = false;
+    }
 }
 </script>
 <style scoped>
