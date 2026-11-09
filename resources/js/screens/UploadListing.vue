@@ -1,7 +1,7 @@
 <template>
     <NavBar></NavBar>
     <div class="container">
-        <div class="form-card">
+        <form @submit.prevent class="form-card">
             <div class="title-company">
                 <div class="field">
                     <span class="field-text">Role title</span>
@@ -95,7 +95,7 @@
             <div class="horizontal-line"></div>
             <div class="field">
                 <span class="field-text">minimum years of relevant experience (optional)</span>
-                <select class="years-of-experience-input">
+                <select class="years-of-experience-input" v-model="form.years_of_experience">
                     <option>0</option>
                     <option v-for="num in oneToTen"> {{ num }}</option>
                 </select>
@@ -116,7 +116,11 @@
                 </div>
             </div>
             </div>
-        </div>
+            <div class="horizontal-line"></div>
+            <div class="buttons-row">
+                <button type="button" class="submit-btn">Post job</button>
+            </div>
+        </form>
     </div>
 </template>
 <script setup>
@@ -187,6 +191,7 @@ onMounted(async () => {
     padding-left: 32px;
     padding-right: 32px;
     border-radius: 10px;
+    padding-bottom: 40px;
 }
 .title-company {
     display: flex;
@@ -276,6 +281,7 @@ onMounted(async () => {
     color: #f7fafc;
     font-size: 16px;
     padding-left: 8px;
+    cursor: pointer;
 }
 .work-from-wrapper {
     display: flex;
@@ -398,5 +404,25 @@ onMounted(async () => {
     font-size: 16px;
     cursor: pointer;
     padding-left: 8px;
+}
+.buttons-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 12px;
+}
+.submit-btn {
+    width: 20%;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #0000ff;
+    color: #f7fafc;
+    border-radius: 12px;
+    border: 1px solid #0000ff;
+    height: 55px;
+}
+.submit-btn:hover {
+    background-color: #0000B3;
+    cursor: pointer;
 }
 </style>
