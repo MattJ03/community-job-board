@@ -123,6 +123,7 @@ const filterListings = async () => {
     }
  }
 
+
  window.onscroll = () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         getMoreListings();
