@@ -496,10 +496,49 @@ function validate() {
 
 @media(max-width: 900px) {
     .form-card {
-        width: 82%;
+        width: 90%;
         margin-top: 30px;
         padding-left: 12px;
-        gap: 26px;
+        padding-right: 12px;
+        gap: 18px;
+    }
+    .industry-selection {
+        gap: 10px;
+        font-size: 15px;
+
+    }
+    .industry-bubble {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+    .field-text {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+    .location-row {
+        justify-content: center;
+        gap: 16px;
+    }
+    .field-dropdown-location {
+        width: 95%;
+    }
+    .location-row {
+        gap: 3px;
+    }
+    .work-type-button {
+        font-size: 15px;
+
+    }
+    .work-from-wrapper {
+        width: 105%;
+        justify-content: normal;
+        margin-right: 20px;
+    }
+    .years-of-experience-input {
+        width: 40%;
+    }
+    .submit-btn {
+        width: 32%;
     }
 }
 </style>
