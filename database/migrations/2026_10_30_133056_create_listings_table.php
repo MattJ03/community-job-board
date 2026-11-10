@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('years_of_experience');
             $table->text('requirements');
             $table->text('description');
-            $table->string('minimum_qualification');
+            $table->text('minimum_qualification');
             $table->string('industry');
             $table->string('work_from');
             $table->decimal('salary')->nullable();

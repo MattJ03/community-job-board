@@ -6,10 +6,12 @@
                 <div class="field">
                     <span class="field-text">Role title</span>
                     <input class="field-input-title" v-model="form.title"/>
+                    <span class="error-text" v-if="errors.title"> {{ errors.title }}</span>
                 </div>
                 <div class="field">
                     <span class="field-text">Company Name</span>
                     <input class="field-input-title" v-model="form.companyName"/>
+                    <span class="error-text" v-if="errors.companyName"> {{ errors.companyName }}</span>
                 </div>
             </div>
             <div class="industry-field">
@@ -19,6 +21,7 @@
                 :class="{ active: form.industry === industry }"
                 > {{ industry }}</span>
             </div>
+                <span class="error-text" v-if="errors.industry"> {{ errors.industry }}</span>
             </div>
             <div class="horizontal-line"></div>
             <div class="location-work-from-topic">
@@ -34,6 +37,7 @@
                             <option v-for="county in counties"> {{ county }}</option>
                         </optgroup>
                     </select>
+                    <span class="error-text" v-if="errors.location"> {{ errors.location }}</span>
                 </div>
                 <div class="field">
                     <span class="field-text">Work from</span>
@@ -48,6 +52,7 @@
                         :class="{ active: form.work_from === 'on-site'}"
                         >On-site</button>
                     </div>
+                    <span class="error-text" v-if="errors.work_from"> {{ errors.work_from }}</span>
                 </div>
             </div>
                 <div class="horizontal-line"></div>
@@ -73,19 +78,23 @@
                 <div class="field" v-if="isSalary">
                     <span class="field-text">Approximate salary</span>
                     <input type="number" v-model="form.salary" class="field-input-title"/>
+                    <span class="error-text" v-if="errors.pay"> {{ errors.pay }}</span>
                 </div>
             </div>
+
             </div>
             <div class="horizontal-line"></div>
             <div class="job-description-row">
                 <span class="field-text-header">Description</span>
                 <span class="field-text">Job responsibilities</span>
                 <textarea class="description-field" v-model="form.description" maxlength="2000"/>
+                <span class="error-text" v-if="errors.description"> {{ errors.description }}</span>
             </div>
             <div class="horizontal-line"></div>
             <div class="job-description-row">
                 <span class="field-text-header">Requirements & Qualifications</span>
                 <textarea class="description-field" v-model="form.requirements"/>
+                <span class="error-text" v-if="errors.requirements"> {{ errors.requirements }}</span>
             </div>
             <div class="horizontal-line"></div>
                 <div class="job-description-row">
@@ -99,7 +108,6 @@
                     <option>0</option>
                     <option v-for="num in oneToTen"> {{ num }}</option>
                 </select>
-
             </div>
             <div class="contact-wrapper">
             <span class="field-text-header">Contact info</span>
@@ -163,7 +171,6 @@ const errors = reactive({
     pay: '',
     description: '',
     requirements: '',
-    minimum_qualification: '',
     years_of_experience: '',
 });
 const listingStore = useListingStore();
@@ -219,6 +226,10 @@ function validate() {
     errors.description = form.description ? '' : 'job description required';
     errors.requirements = form.requirements ? '' : 'role requirements required';
     if(!form.title || !form.companyName || !form.industry || !form.location || !form.work_from || (!form.hourly && !form.salary) || !form.description || !form.requirements) {
+        valid = false;
+    }
+    if(!form.hourly && !form.salary) {
+        errors.pay = 'approximate pay must be set';
         valid = false;
     }
 
@@ -476,5 +487,9 @@ function validate() {
 .submit-btn:hover {
     background-color: #0000B3;
     cursor: pointer;
+}
+.error-text {
+    color: #B00020;
+    font-size: 14px;
 }
 </style>

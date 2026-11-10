@@ -84,6 +84,7 @@ function payFormat(payment) {
     overflow: hidden;
     height: 48px;
     width: 48px;
+    border-radius: 50px;
 }
 .company-logo {
     object-fit: cover;
@@ -97,6 +98,7 @@ function payFormat(payment) {
 .title-company {
     display: flex;
     color: #f7fafc;
+    padding-left: 10px;
     flex-direction: column;
 }
 .listing-company {
