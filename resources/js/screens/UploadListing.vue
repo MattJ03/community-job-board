@@ -154,6 +154,18 @@ const form = reactive({
     years_of_experience: '',
 
 });
+const errors = reactive({
+    title: '',
+    companyName: '',
+    industry: '',
+    location: '',
+    work_from: '',
+    pay: '',
+    description: '',
+    requirements: '',
+    minimum_qualification: '',
+    years_of_experience: '',
+});
 const listingStore = useListingStore();
 const { company } = storeToRefs(companyStore);
 
@@ -190,6 +202,28 @@ const submitListing = async (formValues) => {
     } finally {
         loading.value = false;
     }
+}
+
+function validate() {
+    let valid = true;
+
+    errors.title = form.title ? '' : 'job title required';
+    errors.companyName = form.companyName ? '' : 'company name required';
+    errors.industry = form.industry ? '' : 'industry required';
+    errors.location = form.location ? '' : 'location required';
+    errors.work_from = form.work_from ? '' : 'work from required';
+    if(form.hourly === null && form.salary === null) {
+        errors.pay = 'Approximate payment required';
+    }
+    else {
+    }
+    errors.description = form.description ? '' : 'job description required';
+    errors.requirements = form.requirements ? '' : 'role requirements required';
+    if(!form.title || !form.companyName || !form.industry || !form.location || !form.work_from || errors.pay || !form.description || !form.requirements) {
+        valid = false;
+    }
+
+    return valid;
 }
 </script>
 <style scoped>

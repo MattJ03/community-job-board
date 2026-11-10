@@ -76,7 +76,7 @@ class ListingController extends Controller
             'title' => 'required|max:255',
             'location' => 'required|max:255',
             'years_of_experience' => 'nullable',
-            'requirements' => 'nullable|max:5000',
+            'requirements' => 'required|max:5000',
             'description' => 'required|max:5000',
             'minimum_qualification' => 'nullable',
             'work_from' => 'required',
