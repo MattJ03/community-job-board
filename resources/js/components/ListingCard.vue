@@ -144,6 +144,7 @@ function payFormat(payment) {
     border-radius: 14px;
     border: 1px solid #0000B3;
     width: 90%;
+    text-wrap: auto;
     height: 100px;
     background-color: #1A2540;
     padding-bottom: 18px;

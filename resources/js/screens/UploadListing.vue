@@ -491,5 +491,6 @@ function validate() {
 .error-text {
     color: #B00020;
     font-size: 14px;
+    padding-top: 5px;
 }
 </style>
