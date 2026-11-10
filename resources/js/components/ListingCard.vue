@@ -2,7 +2,7 @@
     <div class="listing-card">
         <div class="top-listing">
             <div class="img-wrapper">
-                <img :src="props.listing.logo || defaultLogo" alt="logo" class="company-logo"/>
+                <img :src="props.listing.company?.logo ? `/storage/${props.listing.company.logo}` : defaultLogo" alt="logo" class="company-logo"/>
             </div>
             <div class="title-company">
             <span class="listing-title"> {{ props.listing.title }} </span>
@@ -82,15 +82,16 @@ function payFormat(payment) {
 }
 .img-wrapper {
     overflow: hidden;
-    height: 40px;
-    width: 40px;
+    height: 48px;
+    width: 48px;
 }
 .company-logo {
     object-fit: cover;
+    width: 100%;
 }
 .listing-title {
     font-weight: bolder;
-    font-size: 16px;
+    font-size: 18px;
     color: #f7fafc;
 }
 .title-company {
@@ -100,7 +101,7 @@ function payFormat(payment) {
 }
 .listing-company {
     padding-top: 4px;
-    font-size: 15px;
+    font-size: 16px;
 }
 .laptop-img {
     height: 22px;
@@ -158,9 +159,12 @@ function payFormat(payment) {
     padding-left: 12px;
     padding-top: 18px;
     color: #f7fafc;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     padding-right: 12px;
+}
+.listing-pay {
+    font-size: 18px;
 }
 .view-listing {
     font-weight: lighter;

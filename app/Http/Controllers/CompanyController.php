@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Hash;
@@ -86,5 +87,7 @@ class CompanyController extends Controller
         ]);
 
     }
+
+
 
 }
