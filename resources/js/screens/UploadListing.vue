@@ -493,4 +493,13 @@ function validate() {
     font-size: 14px;
     padding-top: 5px;
 }
+
+@media(max-width: 900px) {
+    .form-card {
+        width: 82%;
+        margin-top: 30px;
+        padding-left: 12px;
+        gap: 26px;
+    }
+}
 </style>
