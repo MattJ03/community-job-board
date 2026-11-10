@@ -501,6 +501,7 @@ function validate() {
         padding-left: 12px;
         padding-right: 12px;
         gap: 18px;
+        padding-bottom: 20px;
     }
     .industry-selection {
         gap: 10px;
