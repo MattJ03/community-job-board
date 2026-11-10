@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Listing;
+use App\Models\Company;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,11 +18,13 @@ class ListingPosted extends Mailable
     use Queueable, SerializesModels;
 
     public Listing $listing;
+     public Company $company;
 
 
-    public function __construct(Listing $listing)
+    public function __construct(Listing $listing, Company $company)
     {
         $this->listing = $listing;
+        $this->company = $company;
     }
 
     /**
@@ -41,7 +44,7 @@ class ListingPosted extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.listingPosted',
+            view: 'emails.listingPosted',
         );
     }
 

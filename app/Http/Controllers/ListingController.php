@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Policies\ListingPolicy;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Jobs\SendListingPostedEmail;
 
 class ListingController extends Controller
 {
-
+ use DispatchesJobs;
     public function availableListings(Request $request) {
 
         $query = Listing::where('status', 'open');
@@ -100,6 +102,10 @@ class ListingController extends Controller
             'views' => 0,
         ]);
         Log::info($request->user()->title . ' created listing ' . $listing->id);
+
+        $company = $listing->company;
+
+       SendListingPostedEmail::dispatch($listing, $company);
 
         return response()->json([
             'listing' => $listing,
