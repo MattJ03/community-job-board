@@ -267,7 +267,7 @@ const filterListings = async () => {
 }
 .industry-bubble {
     color: #f7fafc;
-    padding: 6px 8px;
+    padding: 10px 12px;
     border-radius: 20px;
     border: 1px solid #f7fafc;
 }
