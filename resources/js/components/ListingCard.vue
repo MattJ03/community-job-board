@@ -43,9 +43,11 @@ import building from '../assets/building.png';
 import hybrid from '../assets/hybrid.png';
 import bluelocation from '../assets/bluelocation.png';
 import router from "../router/index.js";
-
+import { useListingStore } from "../stores/ListingStore.js";
 
 const loading = ref(false);
+const error = ref('');
+const listingStore = useListingStore();
 const props = defineProps({
     listing: {
         type: Object,
@@ -66,6 +68,11 @@ const moveToListingInfo = async () => {
        name: 'listing info',
        params: { listingId: props.listing.id },
    });
+   try {
+       await listingStore.showListing(props.listing.id);
+   } catch (err) {
+       error.value = err.response?.data?.message || 'failed to fetch listing';
+   }
    loading.value = false;
 }
 </script>
