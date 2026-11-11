@@ -10,6 +10,7 @@ use App\Policies\ListingPolicy;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Jobs\SendListingPostedEmail;
 
+
 class ListingController extends Controller
 {
  use DispatchesJobs;
@@ -66,10 +67,12 @@ class ListingController extends Controller
 
         $listing->increment('views');
 
-        return response()->json([[
+        $listing->load('company');
+
+        return response()->json([
             'listing' => $listing,
             'message' => 'listing listing',
-        ]]);
+        ]);
 
     }
 
