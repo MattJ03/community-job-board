@@ -42,6 +42,19 @@ export const useListingStore = defineStore('listings', () => {
         }
     }
 
+    const showListing = async (id) => {
+        loading.value = true;
+        try {
+            const res = await api.get(`showListing/${id}`);
+            listing.value = res.data.listing;
+        } catch(err) {
+            error.value = err.response?.data?.message || 'failed to fetch listing';
+        }
+        finally {
+            loading.value = false;
+        }
+    }
+
     return {
         loading,
         error,
@@ -49,6 +62,7 @@ export const useListingStore = defineStore('listings', () => {
         listing,
         getAllListings,
         storeListing,
+        showListing,
     };
 
 });

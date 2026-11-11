@@ -15,7 +15,7 @@ const routes = [
     { path: '/registerCompany', component: CompanyRegister, name: 'register company' },
     { path: '/loginCompany', component: CompanyLogin, name: 'login company' },
     { path: '/uploadListing', component: UploadListing, name: 'upload listing', meta:{role: 'company'} },
-    { path: 'listing/{listingId}', component: ListingInfo, name: 'listing info' },
+    { path: '/listing/{listingId}', component: ListingInfo, name: 'listing info' },
 ];
 
 const router = createRouter({
