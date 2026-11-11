@@ -1,5 +1,5 @@
 <template>
-    <div class="listing-card">
+    <div class="listing-card" @click="moveToListingInfo">
         <div class="top-listing">
             <div class="img-wrapper">
                 <img :src="props.listing.company?.logo ? `/storage/${props.listing.company.logo}` : defaultLogo" alt="logo" class="company-logo"/>
@@ -42,7 +42,10 @@ import laptop from '../assets/laptop.png';
 import building from '../assets/building.png';
 import hybrid from '../assets/hybrid.png';
 import bluelocation from '../assets/bluelocation.png';
+import router from "../router/index.js";
 
+
+const loading = ref(false);
 const props = defineProps({
     listing: {
         type: Object,
@@ -55,6 +58,15 @@ function payFormat(payment) {
     style: 'currency',
         currency: 'GBP',
     }).format(payment);
+}
+
+const moveToListingInfo = async () => {
+    loading.value = true;
+   await router.push({
+       name: 'listing info',
+       params: { listingId: props.listing.id },
+   });
+   loading.value = false;
 }
 </script>
 <style scoped>

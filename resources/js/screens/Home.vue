@@ -32,7 +32,7 @@
                 v-for="listing in listingStore.totalListings"
                 :listing="listing"
                 id="listing.id"
-                @click="moveToListing(listing.id)"
+
                 />
         </div>
     </div>
@@ -124,12 +124,6 @@ const filterListings = async () => {
     }
  }
 
- const moveToListing = async (id) => {
-    await router.push({
-        name: 'listing info',
-        query: { listingId: id },
-    });
- }
 
  window.onscroll = () => {
     if(window.innerHeight + window.scrollY >= document.body.offsetHeight) {
