@@ -36,6 +36,7 @@
             <h1 class="job-title"> {{ currentListing.title}}</h1>
             <div class="listing-main-info-wrapper">
                 <span class="field-header">About the role</span>
+                <span class="field-text"> {{ currentListing.description }}</span>
             </div>
         </div>
     </div>
@@ -178,9 +179,10 @@ onMounted(async () => {
     flex-direction: column;
     margin-left: 40px;
     margin-top: 30px;
+    width: 100%;
 }
 .field-header {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
 }
 </style>
