@@ -30,6 +30,7 @@
                 </div>
                     <div class="listing-key-points">
                    <span class="industry-header"> {{ currentListing.industry }}</span>
+                        <span v-if="isRecentListing" class="industry-header">  NEW POSTING </span>
                     </div>
             </div>
             </div>
@@ -87,7 +88,7 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, onMounted, watch} from 'vue';
+import {ref, reactive, onMounted, watch, computed} from 'vue';
 import { useListingStore } from "../stores/ListingStore.js";
 import { useRoute } from "vue-router";
 import ListingCard from "../components/ListingCard.vue";
@@ -106,6 +107,11 @@ const listingStore = useListingStore();
 const currentListingId = ref(route.params.listingId);
 const currentListing = ref('');
 
+const isRecentListing = computed(() => {
+    if (!currentListing.value?.created_at) return false
+
+    return dayjs().isBefore(dayjs(currentListing.value.created_at).add(1, 'day'))
+})
 
 const loadListing = async (id) => {
     if (id) {
