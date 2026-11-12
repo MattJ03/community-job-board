@@ -38,6 +38,20 @@ export const useAuthStore = defineStore('users', () => {
        }
    }
 
+   const logoutUser = async () => {
+       loading.value = true;
+       try {
+           const res = await api.post('logoutUser');
+           localStorage.removeItem('token');
+           token.value = null;
+           user.value = null;
+       } catch (err) {
+           error.value = err.response?.data?.message || 'failed to logout user';
+       } finally {
+           loading.value = false;
+       }
+   }
+
    return {
        user,
        token,
@@ -46,5 +60,6 @@ export const useAuthStore = defineStore('users', () => {
        error,
        registerUser,
        loginUser,
+       logoutUser,
    }
 });
