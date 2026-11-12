@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('users', () => {
    const role = ref(null);
    const loading = ref(false);
    const error = ref('');
+   const isLoggedIn = computed(() => !!token.value);
 
    const registerUser = async (payload) => {
        loading.value = true;
@@ -58,6 +59,7 @@ export const useAuthStore = defineStore('users', () => {
        role,
        loading,
        error,
+       isLoggedIn,
        registerUser,
        loginUser,
        logoutUser,
