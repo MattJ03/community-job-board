@@ -5,6 +5,7 @@
             <ListingCard
                 v-for="listing in listingStore.totalListings"
                 :listing="listing"
+                :key="listing.id"
                 id="listing.id"
                 />
         </div>
@@ -13,6 +14,7 @@
                 <div class="img-wrapper">
                 <img :src="listingStore.listing?.company?.logo ? `/storage/${listingStore.listing.company.logo}` : defaultLogo" alt="logo" class="logo-img"/>
                 </div>
+                <div class="listing-details-column">
                 <div class="listing-details-upload-time">
                 <div class="listing-location-details">
                 <span class="company-name"> {{ currentListing.company?.name }} </span>
@@ -26,7 +28,12 @@
                     <span> posted {{ dayjs(currentListing.created_at).fromNow() }}</span>
                 </div>
                 </div>
+                    <div class="listing-key-points">
+                   <span class="industry-header"> {{ currentListing.industry }}</span>
+                    </div>
             </div>
+            </div>
+            <h1 class="job-title"> {{ currentListing.title}}</h1>
         </div>
     </div>
 </template>
@@ -57,9 +64,7 @@ const loadListing = async (id) => {
         currentListing.value = listingStore.listing;
     }
 };
-watch(
-    () => route.params.listingId,
-    async (newId) => {
+watch(() => route.params.listingId,async (newId) => {
         await loadListing(newId);
     }
 );
@@ -110,6 +115,13 @@ onMounted(async () => {
     width: 100%;
     border-radius: 10px;
 }
+.listing-details-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 20px;
+
+}
 .listing-details-upload-time {
     display: flex;
     align-items: center;
@@ -120,7 +132,6 @@ onMounted(async () => {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 20px;
     font-size: 20px;
     gap: 6px;
 }
@@ -128,6 +139,19 @@ onMounted(async () => {
     color: #0000B3;
     font-weight: 400;
     font-size: 20px;
+}
+.listing-key-points {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 12px;
+    font-size: 15px;
+}
+.industry-header {
+    padding: 6px 6px;
+    background-color: #0000B3;
+    border-radius: 10px;
+    color: #f7fafc;
 }
 .date-posted {
     display: flex;
@@ -137,5 +161,10 @@ onMounted(async () => {
 .clock-img {
     height: 22px;
     width: 22px;
+}
+.job-title {
+    margin-left: 40px;
+    margin-top: 70px;
+    font-size: 44px;
 }
 </style>
