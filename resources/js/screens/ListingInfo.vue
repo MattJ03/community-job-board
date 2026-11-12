@@ -47,8 +47,16 @@
                     <span class="field-header">Minimum qualifications & experience</span>
                     <span class="field-text"> {{ currentListing.minimum_qualification}}</span>
                 </div>
+                <div class="field">
                 <span class="field-header">About the company</span>
                 <span class="field-text">Company description (ill do this later)</span>
+                </div>
+                <div class="field">
+                   <div class="employee-count-square">
+                       <span class="employee-count-text">{{ currentListing.company?.name }} employs</span>
+                       <span class="employee-count-response"> {{ currentListing.company?.number_of_employees}}</span>
+                   </div>
+                </div>
             </div>
 
         </div>
@@ -56,12 +64,12 @@
         <div class="rectangle-info-wrapper">
             <div v-if="currentListing.hourly" class="item-in-rectangle">
                 <span class="rectangle-item-question">pay per hour</span>
-                <span class="rectangle-item-answer"> {{ currentListing.hourly}}</span>
+                <span class="rectangle-item-answer"> {{ formatPay(currentListing.hourly) }}</span>
                 <div class="horizontal-line"></div>
             </div>
             <div v-if="currentListing.salary" class="item-in-rectangle">
                 <span class="rectangle-item-question">pay per year</span>
-                <span class="rectangle-item-answer"> {{ currentListing.salary }}</span>
+                <span class="rectangle-item-answer"> {{ formatPay(currentListing.salary) }}</span>
                 <div class="horizontal-line"></div>
             </div>
             <div class="item-in-rectangle">
@@ -117,6 +125,12 @@ onMounted(async () => {
     currentListing.value = listingStore.listing;
 });
 
+function formatPay(pay) {
+    return Intl.NumberFormat('en-gb', {
+        style: "currency",
+        currency: 'GBP'
+    }).format(pay)
+}
 </script>
 <style scoped>
 .container {
@@ -278,5 +292,26 @@ onMounted(async () => {
     border-radius: 10px;
     margin-top: 12px;
     width: 100%;
+}
+.employee-count-square {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    height: 100px;
+    background-color: #0000B3;
+    padding-left: 12px;
+    padding-top: 10px;
+    width: 50%;
+    border-radius: 12px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+.employee-count-text {
+    font-size: 16px;
+    color: #f7fafc;
+}
+.employee-count-response {
+    font-size: 40px;
+    color: #f7fafc;
 }
 </style>
