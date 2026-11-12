@@ -35,8 +35,18 @@
             </div>
             <h1 class="job-title"> {{ currentListing.title}}</h1>
             <div class="listing-main-info-wrapper">
+                <div class="field">
                 <span class="field-header">About the role</span>
                 <span class="field-text"> {{ currentListing.description }}</span>
+                </div>
+                <div class="field">
+                    <span class="field-header">A prospective candidate should</span>
+                    <span class="field-text"> {{ currentListing.requirements }}</span>
+                </div>
+                <div class="field">
+                    <span class="field-header">Minimum qualifications & experience</span>
+                    <span class="field-text"> {{ currentListing.minimum_qualification}}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -179,10 +189,16 @@ onMounted(async () => {
     flex-direction: column;
     margin-left: 40px;
     margin-top: 30px;
+    gap: 40px;
     width: 100%;
 }
 .field-header {
     font-size: 22px;
     font-weight: bold;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 </style>
