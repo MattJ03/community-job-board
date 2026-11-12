@@ -25,7 +25,7 @@
 
                 <div class="date-posted">
                     <img :src="clock" class="clock-img" alt="clock"/>
-                    <span> posted {{ dayjs(currentListing.created_at).fromNow() }}</span>
+                    <span>{{ dayjs(currentListing.created_at).fromNow() }}</span>
                 </div>
                 </div>
                     <div class="listing-key-points">
@@ -34,6 +34,9 @@
             </div>
             </div>
             <h1 class="job-title"> {{ currentListing.title}}</h1>
+            <div class="listing-main-info-wrapper">
+                <span class="field-header">About the role</span>
+            </div>
         </div>
     </div>
 </template>
@@ -158,13 +161,26 @@ onMounted(async () => {
     align-items: center;
     gap: 6px;
 }
+.date-posted span {
+    font-size: 14px;
+}
 .clock-img {
-    height: 22px;
-    width: 22px;
+    height: 16px;
+    width: 16px;
 }
 .job-title {
     margin-left: 40px;
     margin-top: 70px;
     font-size: 44px;
+}
+.listing-main-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-top: 30px;
+}
+.field-header {
+    font-size: 20px;
+    font-weight: bold;
 }
 </style>

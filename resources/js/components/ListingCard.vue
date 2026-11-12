@@ -70,6 +70,7 @@ const moveToListingInfo = async () => {
    });
    try {
        await listingStore.showListing(props.listing.id);
+      window.scrollTo({top: 0})
    } catch (err) {
        error.value = err.response?.data?.message || 'failed to fetch listing';
    }
