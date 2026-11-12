@@ -30,7 +30,10 @@
                 </div>
                     <div class="listing-key-points">
                    <span class="industry-header"> {{ currentListing.industry }}</span>
-                        <span v-if="isRecentListing" class="industry-header">  NEW POSTING </span>
+                        <div class="industry-header">
+                            <img :src="lightening" class="new-listing-img" alt="lightening"/>
+                        <span v-if="isRecentListing" class="industry-header">New listing</span>
+                        </div>
                     </div>
             </div>
             </div>
@@ -97,6 +100,8 @@ import defaultLogo from '../assets/dafaultLogo.png';
 import clock from '../assets/clock.png';
 import dayjs from "dayjs";
 import RelativeTime from 'dayjs/plugin/relativeTime.js';
+import lightening from '../assets/lightening.png';
+
 
 dayjs.extend(RelativeTime);
 
@@ -151,10 +156,11 @@ function formatPay(pay) {
     gap: 18px;
     margin-left: 80px;
     margin-top: 80px;
-    overflow-y: scroll;
+
 }
 .listing-container {
     display: flex;
+
     flex-direction: column;
     width: 40%;
 }
@@ -209,10 +215,17 @@ function formatPay(pay) {
     font-size: 15px;
 }
 .industry-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 6px 6px;
-    background-color: #0000B3;
+    background-color: #1A2540;
     border-radius: 10px;
     color: #f7fafc;
+}
+.new-listing-img {
+    height: 20px;
+    width: 20px;
 }
 .date-posted {
     display: flex;
@@ -262,6 +275,7 @@ function formatPay(pay) {
     align-items: center;
     padding-top: 12px;
     border-radius: 8px;
+    background-color: #0F172A;
     height: auto;
     width: 300px;
     border: 1px solid #1a202c;
@@ -282,14 +296,14 @@ function formatPay(pay) {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #808080 ;
+    color: #A9B4C7 ;
 }
 .rectangle-item-answer {
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 500;
-
+    color: #f7fafc;
     width: 100%;
 
 }

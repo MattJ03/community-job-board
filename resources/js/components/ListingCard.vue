@@ -191,8 +191,8 @@ const moveToListingInfo = async () => {
 }
 .view-listing {
     font-weight: lighter;
-    color: #F28A2E;
+    color: #f7fafc;
     font-size: 16px;
-    border-bottom: 1px solid #F28A2E;
+    border-bottom: 1px solid #f7fafc;
 }
 </style>
