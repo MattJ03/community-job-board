@@ -18,9 +18,6 @@
                 <div class="listing-details-upload-time">
                 <div class="listing-location-details">
                 <span class="company-name"> {{ currentListing.company?.name }} </span>
-                    <span v-if="currentListing.work_from === 'on-site' || currentListing.work_from === 'hybrid'">: {{ currentListing.work_from }} job based in</span>
-                    <span v-if="currentListing.work_from === 'remote'">: {{ currentListing.work_from}} role based in </span>
-                    <span> {{ currentListing.location }}</span>
                 </div>
 
                 <div class="date-posted">
@@ -30,10 +27,13 @@
                 </div>
                     <div class="listing-key-points">
                    <span class="industry-header"> {{ currentListing.industry }}</span>
-                        <div class="industry-header">
+                        <div class="industry-header" v-if="isRecentListing">
                             <img :src="lightening" class="new-listing-img" alt="lightening"/>
-                        <span v-if="isRecentListing" class="industry-header">New listing</span>
+                        <span>New listing</span>
                         </div>
+                        <span class="industry-header"> {{ currentListing.work_from }}</span>
+                        <span class="industry-header"> {{ currentListing.location }}</span>
+
                     </div>
             </div>
             </div>
@@ -220,7 +220,7 @@ function formatPay(pay) {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 6px;
+    padding: 12px 12px;
     background-color: #0F172A;
     border-radius: 10px;
     color: #f7fafc;
@@ -335,5 +335,14 @@ function formatPay(pay) {
 .employee-count-response {
     font-size: 40px;
     color: #f7fafc;
+}
+@media(max-width: 900px) {
+.container {
+    flex-direction: column;
+}
+
+    .listings-column {
+        display: none;
+    }
 }
 </style>
