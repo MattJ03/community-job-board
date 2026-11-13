@@ -152,7 +152,9 @@ function formatPay(pay) {
 .listings-column {
     display: flex;
     flex-direction: column;
+    height: 100dvh;
     width: 25%;
+    overflow-y: auto;
     gap: 18px;
     margin-left: 80px;
     margin-top: 80px;
