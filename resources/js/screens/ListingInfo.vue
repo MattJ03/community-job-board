@@ -344,5 +344,18 @@ function formatPay(pay) {
     .listings-column {
         display: none;
     }
+    .listing-container {
+        width: 100%;
+    }
+    .top-of-listing {
+        margin-top: 50px;
+        margin-left: 12px;
+    }
+    .listing-details-column {
+        margin-left: 6px;
+    }
+    .listing-details-upload-time {
+        width: 90%;
+    }
 }
 </style>
