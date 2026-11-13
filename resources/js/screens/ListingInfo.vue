@@ -219,7 +219,7 @@ function formatPay(pay) {
     align-items: center;
     justify-content: center;
     padding: 6px 6px;
-    background-color: #1A2540;
+    background-color: #0F172A;
     border-radius: 10px;
     color: #f7fafc;
 }
