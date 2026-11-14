@@ -160,7 +160,7 @@ function formatPay(pay) {
     display: flex;
     flex-direction: column;
     height: 100dvh;
-    width: 25%;
+    width: 23%;
     overflow-y: auto;
     gap: 18px;
     margin-left: 80px;
@@ -361,7 +361,7 @@ function formatPay(pay) {
     }
     .top-of-listing {
         margin-top: 50px;
-        margin-left: 12px;
+        margin-left: 18px;
     }
     .job-title {
         margin-top: 30px;
@@ -373,7 +373,7 @@ function formatPay(pay) {
         width: 90%;
     }
     .listing-main-info-wrapper {
-        margin-left: 12px;
+        margin-left: 18px;
         width: 90%;
     }
     .quick-info-container {
@@ -388,12 +388,15 @@ function formatPay(pay) {
     .listings-row-mobile {
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding-left: 12px;
+        justify-content: flex-start;
         width: 100%;
         gap: 8px;
         height: auto;
         overflow-x: auto;
+        padding-left: 16px;
+        box-sizing: border-box;
+        margin-top: 30px;
+        padding-bottom: 20px;
     }
 }
 </style>
