@@ -314,6 +314,7 @@ function formatPay(pay) {
     justify-content: center;
     align-items: center;
     font-weight: 500;
+    font-size: 18px;
     color: #f7fafc;
     width: 100%;
 
@@ -379,11 +380,13 @@ function formatPay(pay) {
     .quick-info-container {
         height: auto;
         width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
     }
     .rectangle-info-wrapper {
        width: 70%;
-        margin: auto;
-        margin-top: 30px;
+        margin-left: 12px;
+        margin-top: 0;
     }
     .listings-row-mobile {
         display: flex;
@@ -398,5 +401,6 @@ function formatPay(pay) {
         margin-top: 30px;
         padding-bottom: 20px;
     }
+
 }
 </style>
