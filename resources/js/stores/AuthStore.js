@@ -4,10 +4,12 @@ import api from "../axios.js";
 export const useAuthStore = defineStore('users', () => {
    const user = ref('');
    const token = ref(localStorage.getItem('token'));
+   const name = ref('');
    const role = ref(null);
    const loading = ref(false);
    const error = ref('');
    const isLoggedIn = computed(() => !!token.value);
+   const accountType = ref(null);
 
    const registerUser = async (payload) => {
        loading.value = true;
@@ -29,6 +31,7 @@ export const useAuthStore = defineStore('users', () => {
            const res = await api.post('loginUser', payload);
            user.value = res.data.user;
            token.value = res.data.token;
+           name.value = res.data.user.name;
           localStorage.setItem('token', token.value);
            console.log(res.data.token);
        } catch (err) {
@@ -53,15 +56,32 @@ export const useAuthStore = defineStore('users', () => {
        }
    }
 
+   const getCurrentUser = async () => {
+       loading.value = true;
+       try {
+           const res = await api.get('me');
+           name.value = res.data.account.name;
+           user.name = res.data.account;
+           accountType.value = res.data.account.account_type;
+       } catch(err) {
+           error.value = err.response?.data?.message || 'failed to get current user';
+       } finally {
+           loading.value = false;
+       }
+   }
+
    return {
        user,
        token,
+       name,
        role,
        loading,
        error,
        isLoggedIn,
+       accountType,
        registerUser,
        loginUser,
        logoutUser,
+       getCurrentUser,
    }
 });

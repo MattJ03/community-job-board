@@ -15,16 +15,20 @@
 
 </template>
 <script setup>
-import { ref, reactive, computed, onMounted } from "vue";
+import {ref, reactive, computed, onMounted, watch} from "vue";
 import api from "../axios.js";
 import logo from '../assets/logo.png';
 import router from "../router/index.js";
 import { useAuthStore } from "../stores/AuthStore.js";
+import {storeToRefs} from "pinia";
 
 const loading = ref(false);
 const error = ref(null);
 const accountType = ref('');
 const authStore = useAuthStore();
+const { name } = storeToRefs(authStore);
+console.log(name.value);
+
 onMounted(async () => {
     const res = await api.get('me');
     accountType.value = res.data.account.account_type;
@@ -57,6 +61,8 @@ const logout = async () => {
         loading.value = false;
     }
 }
+
+
 
 </script>
 <style scoped>
