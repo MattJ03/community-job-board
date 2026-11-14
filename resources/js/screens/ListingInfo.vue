@@ -88,6 +88,13 @@
             </div>
         </div>
         </div>
+        <div class="listings-row-mobile">
+        <ListingCard
+            v-for="listing in listingStore.totalListings"
+            :listing="listing"
+            key="listing.id"
+            />
+        </div>
     </div>
 </template>
 <script setup>
@@ -253,6 +260,7 @@ function formatPay(pay) {
     margin-top: 30px;
     gap: 40px;
     width: 100%;
+    padding-bottom: 40px;
 }
 .field-header {
     font-size: 22px;
@@ -281,6 +289,7 @@ function formatPay(pay) {
     height: auto;
     width: 300px;
     border: 1px solid #1a202c;
+
 
 }
 .item-in-rectangle {
@@ -336,6 +345,9 @@ function formatPay(pay) {
     font-size: 40px;
     color: #f7fafc;
 }
+.listings-row-mobile {
+    display: none;
+}
 @media(max-width: 900px) {
 .container {
     flex-direction: column;
@@ -351,11 +363,37 @@ function formatPay(pay) {
         margin-top: 50px;
         margin-left: 12px;
     }
+    .job-title {
+        margin-top: 30px;
+    }
     .listing-details-column {
         margin-left: 6px;
     }
     .listing-details-upload-time {
         width: 90%;
+    }
+    .listing-main-info-wrapper {
+        margin-left: 12px;
+        width: 90%;
+    }
+    .quick-info-container {
+        height: auto;
+        width: 100%;
+    }
+    .rectangle-info-wrapper {
+       width: 70%;
+        margin: auto;
+        margin-top: 30px;
+    }
+    .listings-row-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 12px;
+        width: 100%;
+        gap: 8px;
+        height: auto;
+        overflow-x: auto;
     }
 }
 </style>
