@@ -9,10 +9,18 @@
         </div>
         <div class="buttons-wrapper">
             <span @click="moveToUpload()" v-if="accountType === 'company'" class="move-to-upload">Post job</span>
-            <span class="my-account-btn"> {{ firstLetter }}</span>
+            <div class="users-account">
+            <span class="my-account-btn" @click="showAccountActions = !showAccountActions"> {{ firstLetter }}</span>
+                <div v-if="showAccountActions" class="user-account-actions">
+
+                </div>
+            </div>
             <span class="logout-user" @click="logout()" v-if="authStore.isLoggedIn">Log out</span>
         </div>
     </nav>
+    <div class="modal-overlay" v-if="showAccountModal">
+
+    </div>
 
 </template>
 <script setup>
@@ -29,6 +37,8 @@ const accountType = ref('');
 const authStore = useAuthStore();
 const firstLetter = ref('');
 const { name } = storeToRefs(authStore);
+const showAccountActions = ref(false);
+const showAccountModal = ref(false);
 
 onMounted(async () => {
     const res = await api.get('me');
@@ -121,7 +131,7 @@ const logout = async () => {
     cursor: pointer;
 }
 .my-account-btn {
-    position: relative;
+
     color: #0F172A;
     padding: 10px 16px;
     border-radius: 60px;
@@ -132,5 +142,35 @@ const logout = async () => {
 .my-account-btn:hover {
     background-color: #ccd0d5;
     cursor: pointer;
+}
+.users-account {
+   position: relative;
+    display: inline-flex;
+}
+.user-account-actions {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    height: 140px;
+    border-radius: 12px;
+    background-color: #0F172A;
+    border: 1px solid #ccd0d5;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    z-index: 65;
 }
 </style>
