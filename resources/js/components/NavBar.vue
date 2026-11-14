@@ -9,6 +9,7 @@
         </div>
         <div class="buttons-wrapper">
             <span @click="moveToUpload()" v-if="accountType === 'company'" class="move-to-upload">Post job</span>
+            <span class="my-account-btn"> {{ firstLetter }}</span>
             <span class="logout-user" @click="logout()" v-if="authStore.isLoggedIn">Log out</span>
         </div>
     </nav>
@@ -26,13 +27,17 @@ const loading = ref(false);
 const error = ref(null);
 const accountType = ref('');
 const authStore = useAuthStore();
+const firstLetter = ref('');
 const { name } = storeToRefs(authStore);
-console.log(name.value);
 
 onMounted(async () => {
     const res = await api.get('me');
     accountType.value = res.data.account.account_type;
+    authStore.name = res.data.account.name;
+    firstLetter.value = authStore.name?.charAt('0').toUpperCase();
+    console.log(firstLetter.value)
     console.log(accountType.value);
+
 });
 
 const moveToHome = async ()=> {
@@ -73,7 +78,7 @@ const logout = async () => {
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: 78px;
     background-color: #0F172A;
 }
 .logo-wrapper {
@@ -93,6 +98,7 @@ const logout = async () => {
     gap: 32px;
     flex-direction: row;
     justify-content: right;
+    align-items: center;
     padding-right: 18px;
 }
 .move-to-upload {
@@ -106,11 +112,25 @@ const logout = async () => {
 }
 .logout-user {
     color: #f7fafc;
+    padding-bottom: 0;
     border-bottom: 1px solid #f7fafc;
 }
 .logout-user:hover {
     color: #ccd0d5;
     border-bottom: 1px solid #ccd0d5;
+    cursor: pointer;
+}
+.my-account-btn {
+    position: relative;
+    color: #0F172A;
+    padding: 10px 16px;
+    border-radius: 60px;
+    background-color: #f7fafc;
+    font-size: 18px;
+    font-weight: 400;
+}
+.my-account-btn:hover {
+    background-color: #ccd0d5;
     cursor: pointer;
 }
 </style>
