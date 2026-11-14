@@ -195,4 +195,9 @@ const moveToListingInfo = async () => {
     font-size: 16px;
     border-bottom: 1px solid #f7fafc;
 }
+@media(max-width: 900px) {
+    .listing-card {
+        width: 99%;
+    }
+}
 </style>

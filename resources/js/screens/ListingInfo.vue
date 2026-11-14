@@ -389,7 +389,7 @@ function formatPay(pay) {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: 12px;
+        padding-left: 12px;
         width: 100%;
         gap: 8px;
         height: auto;
