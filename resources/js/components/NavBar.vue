@@ -12,14 +12,25 @@
             <div class="users-account">
             <span class="my-account-btn" @click="showAccountActions = !showAccountActions"> {{ firstLetter }}</span>
                 <div v-if="showAccountActions" class="user-account-actions">
-
+                    <span @click="showPrefferedIndustries = true; showAccountActions = false;">Preferred industries</span>
+                    <div class="horizontal-line"></div>
                 </div>
             </div>
             <span class="logout-user" @click="logout()" v-if="authStore.isLoggedIn">Log out</span>
         </div>
     </nav>
-    <div class="modal-overlay" v-if="showAccountModal">
+    <div class="modal-overlay" v-if="showAccountModal || showPrefferedIndustries">
+        <div class="show-preferred-industries-square">
+            <div class="top-of-preferred">
+                <h2>I'm interested in the following industries</h2>
+                <div class="close-img-wrapper">
+                <img :src="x" class="close-modal" alt="x"/>
+                </div>
+            </div>
+            <div class="info-on-preferred">
 
+            </div>
+        </div>
     </div>
 
 </template>
@@ -30,6 +41,7 @@ import logo from '../assets/logo.png';
 import router from "../router/index.js";
 import { useAuthStore } from "../stores/AuthStore.js";
 import {storeToRefs} from "pinia";
+import x from '../assets/whiteX.png';
 
 const loading = ref(false);
 const error = ref(null);
@@ -39,6 +51,7 @@ const firstLetter = ref('');
 const { name } = storeToRefs(authStore);
 const showAccountActions = ref(false);
 const showAccountModal = ref(false);
+const showPrefferedIndustries = ref(false);
 
 onMounted(async () => {
     const res = await api.get('me');
@@ -154,11 +167,30 @@ const logout = async () => {
     z-index: 70;
     display: flex;
     flex-direction: column;
-    width: 120px;
+    width: 160px;
     height: 140px;
     border-radius: 12px;
-    background-color: #0F172A;
+    background-color: #f7fafc;
+    box-sizing: border-box;
     border: 1px solid #ccd0d5;
+}
+.user-account-actions span {
+    padding-left: 6px;
+    border-radius: 12px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-top: 8px;
+    font-size: 16px;
+    padding-bottom: 3px;
+}
+.user-account-actions span:hover {
+    background-color: #ccd0d5;
+    cursor: pointer
+}
+.horizontal-line {
+    border: 1px solid #0F172A;
+    width: 100%;
+
 }
 .modal-overlay {
     position: fixed;
@@ -172,5 +204,49 @@ const logout = async () => {
     width: 100vw;
     overflow: hidden;
     z-index: 65;
+}
+.show-preferred-industries-square {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 700px;
+    background-color: #f7fafc;
+
+    border-radius: 10px;
+}
+.top-of-preferred {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 100%;
+    background-color: #0F172A;
+    height: 10%;
+}
+.top-of-preferred h2 {
+    display: flex;
+    margin: auto;
+    color: #f7fafc;
+}
+.close-img-wrapper {
+    display: flex;
+    align-items: center;
+    padding-right: 4px;
+
+}
+.close-modal {
+    height: 20px;
+    padding: 10px;
+    border-radius: 30px;
+}
+.close-modal:hover {
+    cursor: pointer;
+    background-color: #0000B3;
+}
+.info-on-preferred {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    background-color: #0000B3;
 }
 </style>
