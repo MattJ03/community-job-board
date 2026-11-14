@@ -38,7 +38,7 @@
     </div>
 </template>
 <script setup>
-import {ref, reactive, computed, onMounted, watch} from "vue";
+import {ref, reactive, computed, onMounted, watch, onUnmounted } from "vue";
 import router from "../router/index.js";
 import { useAuthStore } from "../stores/AuthStore.js";
 import searchImg from '../assets/searchImg.png';
@@ -130,6 +130,10 @@ const filterListings = async () => {
         getMoreListings();
      }
  }
+
+ onUnmounted(() => {
+   window.onscroll = null;
+ })
 
 </script>
 <style scoped>
