@@ -36,5 +36,8 @@ class User extends Authenticatable
     public function getAccountTypeAttribute() {
         return 'user';
     }
+    public function industry() {
+        return $this->belongsTo(Industry::class);
+    }
 
 }

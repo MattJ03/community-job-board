@@ -19,4 +19,8 @@ class Company extends Authenticatable
     public function getAccountTypeAttribute() {
         return 'company';
     }
+
+    public function industry() {
+        return $this->belongsTo(Industry::class, 'industry');
+    }
 }
