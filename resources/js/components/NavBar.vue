@@ -30,11 +30,13 @@
             <div class="info-on-preferred">
                 <div class="above-industries-options">
                 <span class="select-industries-text">Select industries</span>
-                <span class="select-industries-text"> {{ selectedIndustries }} of 5 selected </span>
+                <span class="select-industries-text"> {{ selectedIndustries.length }} of 5 selected </span>
                 </div>
             </div>
             <div class="industries-options">
-                <span class="industry-bubble"></span>
+                <span class="industry-bubble" v-for="industry in industryStore.industries" @click="toggle(industry.id)"
+                      :class="{ active: selectedIndustries.includes(industry.id) }"
+                > {{ industry.name }}</span>
             </div>
         </div>
     </div>
@@ -46,26 +48,37 @@ import api from "../axios.js";
 import logo from '../assets/logo.png';
 import router from "../router/index.js";
 import { useAuthStore } from "../stores/AuthStore.js";
+import { useIndustryStore } from "../stores/IndustryStore.js";
 import {storeToRefs} from "pinia";
 import x from '../assets/whiteX.png';
+import tick from '../assets/tick.png';
+
 
 const loading = ref(false);
 const error = ref(null);
 const accountType = ref('');
 const authStore = useAuthStore();
+const industryStore = useIndustryStore();
 const firstLetter = ref('');
 const { name } = storeToRefs(authStore);
 const showAccountActions = ref(false);
 const showAccountModal = ref(false);
 const showPrefferedIndustries = ref(false);
+const selectedIndustries = ref([]);
+
+const toggle = (id) => {
+    const i = selectedIndustries.value.indexOf(id);
+    if(i !== -1) selectedIndustries.value.splice(i, 1);
+    else if(selectedIndustries.value.length < 5) selectedIndustries.value.push(id);
+}
 
 onMounted(async () => {
     const res = await api.get('me');
     accountType.value = res.data.account.account_type;
     authStore.name = res.data.account.name;
     firstLetter.value = authStore.name?.charAt('0').toUpperCase();
-    console.log(firstLetter.value)
-    console.log(accountType.value);
+    await industryStore.getAllIndustries();
+
 
 });
 
@@ -270,6 +283,9 @@ const logout = async () => {
 }
 .industries-options {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
     margin-top: 30px;
     width: 80%;
     flex-wrap: wrap;
@@ -278,6 +294,7 @@ const logout = async () => {
     color: #f7fafc;
     padding: 10px 12px;
     border-radius: 20px;
+    background-color: #0F172A;
     border: 1px solid #f7fafc;
 }
 .industry-bubble:hover {
