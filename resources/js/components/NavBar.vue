@@ -28,7 +28,13 @@
                 </div>
             </div>
             <div class="info-on-preferred">
-
+                <div class="above-industries-options">
+                <span class="select-industries-text">Select industries</span>
+                <span class="select-industries-text"> {{ selectedIndustries }} of 5 selected </span>
+                </div>
+            </div>
+            <div class="industries-options">
+                <span class="industry-bubble"></span>
             </div>
         </div>
     </div>
@@ -247,6 +253,39 @@ const logout = async () => {
     flex-direction: row;
     height: 50px;
     width: 100%;
-    background-color: #0000B3;
+
+}
+.above-industries-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    font-size: 16px;
+}
+.select-industries-text {
+    color: #A9B4C7;
+}
+.industries-options {
+    display: flex;
+    margin-top: 30px;
+    width: 80%;
+    flex-wrap: wrap;
+}
+.industry-bubble {
+    color: #f7fafc;
+    padding: 10px 12px;
+    border-radius: 20px;
+    border: 1px solid #f7fafc;
+}
+.industry-bubble:hover {
+    background-color: #4a5568;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.industry-bubble.active {
+    background-color: #4a5568;
 }
 </style>
