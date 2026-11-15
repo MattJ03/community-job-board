@@ -5,7 +5,7 @@ use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\IndustryController;
 
 Route::post('/registerUser', [AuthController::class, 'registerUser']);
 Route::post('/loginUser', [AuthController::class, 'loginUser']);
@@ -13,7 +13,7 @@ Route::post('/registerCompany', [CompanyController::class, 'registerCompany']);
 Route::post('/loginCompany', [CompanyController::class, 'loginCompany']);
 Route::post('/storeCompanyLogo', [CompanyController::class, 'storeCompanyLogo']);
 Route::get('/me', [AuthController::class, 'me']);
-
+Route::get('/allIndustries', [IndustryController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listingsIndex', [ListingController::class, 'availableListings']);
