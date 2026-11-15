@@ -14,6 +14,7 @@ Route::post('/loginCompany', [CompanyController::class, 'loginCompany']);
 Route::post('/storeCompanyLogo', [CompanyController::class, 'storeCompanyLogo']);
 Route::get('/me', [AuthController::class, 'me']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/listingsIndex', [ListingController::class, 'availableListings']);
     Route::get('showListing/{listing}', [ListingController::class, 'showListing']);
