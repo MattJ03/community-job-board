@@ -24,7 +24,7 @@
             <div class="top-of-preferred">
                 <h2>I'm interested in the following industries</h2>
                 <div class="close-img-wrapper">
-                <img :src="x" class="close-modal" alt="x"/>
+                <img :src="x" class="close-modal" @click="closePreferredIndustries()" alt="x"/>
                 </div>
             </div>
             <div class="info-on-preferred">
@@ -109,6 +109,10 @@ const logout = async () => {
     }
 }
 
+const closePreferredIndustries = () => {
+    selectedIndustries.value = [];
+    showPrefferedIndustries.value = false;
+}
 
 
 </script>
