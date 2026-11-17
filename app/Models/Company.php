@@ -20,7 +20,7 @@ class Company extends Authenticatable
         return 'company';
     }
 
-    public function industry() {
+    public function industries() {
         return $this->belongsTo(Industry::class, 'industry');
     }
 }

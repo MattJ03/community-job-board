@@ -41,7 +41,7 @@
             <div class="bottom-of-preferred-industries-square">
                 <div class="submit-preferred-industries-btns">
                     <button class="clear-preferences-btn" @click="clearPreferredIndustries()">Clear</button>
-                    <button class="submit-preferred-industries-btn">Submit</button>
+                    <button class="submit-preferred-industries-btn" @click="storeUserPreferredIndustries()">Submit</button>
                 </div>
             </div>
         </div>
@@ -124,6 +124,17 @@ const clearPreferredIndustries = () => {
     selectedIndustries.value = [];
 }
 
+const storeUserPreferredIndustries = async () => {
+    loading.value = true;
+    try {
+        const res = await api.put('storePreferredIndustries', { industries: selectedIndustries.value });
+        return true;
+    } catch(err) {
+        error.value = err.response?.data?.message || 'failed to put user preferred industries';
+    } finally {
+        loading.value = false;
+    }
+}
 
 </script>
 <style scoped>

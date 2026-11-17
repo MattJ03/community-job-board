@@ -37,7 +37,7 @@ class User extends Authenticatable
         return 'user';
     }
     public function industries() {
-        return $this->belongsTo(Industry::class);
+        return $this->belongsToMany(Industry::class);
     }
 
 }
