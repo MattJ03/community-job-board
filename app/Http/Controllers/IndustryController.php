@@ -21,4 +21,17 @@ class IndustryController extends Controller
             'message' => 'industries found',
         ]);
     }
+
+    public function storePreferredIndustries(Request $request) {
+        $user = auth('sanctum')->user();
+
+        $validatedData = $request->validate([
+            'industries' => 'sometimes|array|max:5',
+            'industries.*' => 'integer|distinct|exists:industries,id',
+        ]);
+
+        $user->industries()->sync($validatedData['industries']);
+
+        return response()->noContent();
+    }
 }

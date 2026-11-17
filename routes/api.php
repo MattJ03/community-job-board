@@ -22,5 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/updateListing/{listing}', [ListingController::class, 'updateListing']);
     Route::post('/logoutUser', [AuthController::class, 'logout']);
     Route::delete('/deleteListing/{listing}', [ListingController::class, 'deleteListing']);
+    Route::put('/storePreferredIndustries', [IndustryController::class, 'storePreferredIndustries']);
 Route::delete('/deleteUser', [AuthController::class, 'deleteUser']);
 });

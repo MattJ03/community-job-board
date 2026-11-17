@@ -20,6 +20,7 @@ export const useIndustryStore = defineStore('industry', () => {
     }
 
 
+
    return {
        error,
        loading,
