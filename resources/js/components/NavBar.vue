@@ -38,6 +38,12 @@
                       :class="{ active: selectedIndustries.includes(industry.id) }"
                 > {{ industry.name }}</span>
             </div>
+            <div class="bottom-of-preferred-listings-square">
+                <div class="submit-preferred-listings-btns">
+                    <button class="clear-preferences-btn">Clear</button>
+                    <button class="submit-preferred-listings-btn">Submit</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -231,8 +237,8 @@ const closePreferredIndustries = () => {
 .show-preferred-industries-square {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    height: 700px;
+    width: 45%;
+    height: 500px;
     background-color: #f7fafc;
 
     border-radius: 10px;
@@ -308,5 +314,43 @@ const closePreferredIndustries = () => {
 }
 .industry-bubble.active {
     background-color: #4a5568;
+}
+.bottom-of-preferred-listings-square {
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 100%;
+    background-color: #0F172A;
+    margin-bottom: 0;
+    margin-top: auto;
+}
+.submit-preferred-listings-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 50%;
+    margin-left: auto;
+}
+.clear-preferences-btn {
+    height: 100%;
+    width: 85px;
+    background-color: #f7fafc;
+    color: #000000;
+    border-radius: 12px;
+    font-size: 15px;
+    border: 1px solid #f7fafc;
+    font-weight: 400;
+}
+.submit-preferred-listings-btn {
+    height: 100%;
+    width: 85px;
+    background-color: #0000B3;
+    color: #f7fafc;
+    font-size: 15px;
+    border-radius: 12px;
+    border: 1px solid #0000B3;
+    font-weight: 400;
+    padding-right: 12px;
 }
 </style>
