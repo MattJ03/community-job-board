@@ -38,10 +38,10 @@
                       :class="{ active: selectedIndustries.includes(industry.id) }"
                 > {{ industry.name }}</span>
             </div>
-            <div class="bottom-of-preferred-listings-square">
-                <div class="submit-preferred-listings-btns">
-                    <button class="clear-preferences-btn">Clear</button>
-                    <button class="submit-preferred-listings-btn">Submit</button>
+            <div class="bottom-of-preferred-industries-square">
+                <div class="submit-preferred-industries-btns">
+                    <button class="clear-preferences-btn" @click="clearPreferredIndustries()">Clear</button>
+                    <button class="submit-preferred-industries-btn">Submit</button>
                 </div>
             </div>
         </div>
@@ -118,6 +118,10 @@ const logout = async () => {
 const closePreferredIndustries = () => {
     selectedIndustries.value = [];
     showPrefferedIndustries.value = false;
+}
+
+const clearPreferredIndustries = () => {
+    selectedIndustries.value = [];
 }
 
 
@@ -241,13 +245,16 @@ const closePreferredIndustries = () => {
     height: 500px;
     background-color: #f7fafc;
 
-    border-radius: 10px;
+    border-radius: 12px;
 }
 .top-of-preferred {
     display: flex;
     flex-direction: row;
     justify-content: right;
     width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
     background-color: #0F172A;
     height: 10%;
 }
@@ -269,7 +276,7 @@ const closePreferredIndustries = () => {
 }
 .close-modal:hover {
     cursor: pointer;
-    background-color: #0000B3;
+    background-color: #A9B4C7;
 }
 .info-on-preferred {
     display: flex;
@@ -315,7 +322,7 @@ const closePreferredIndustries = () => {
 .industry-bubble.active {
     background-color: #4a5568;
 }
-.bottom-of-preferred-listings-square {
+.bottom-of-preferred-industries-square {
     display: flex;
     flex-direction: row;
     height: 10%;
@@ -323,8 +330,12 @@ const closePreferredIndustries = () => {
     background-color: #0F172A;
     margin-bottom: 0;
     margin-top: auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px
 }
-.submit-preferred-listings-btns {
+.submit-preferred-industries-btns {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -333,7 +344,7 @@ const closePreferredIndustries = () => {
     margin-left: auto;
 }
 .clear-preferences-btn {
-    height: 100%;
+    height: 90%;
     width: 85px;
     background-color: #f7fafc;
     color: #000000;
@@ -342,8 +353,13 @@ const closePreferredIndustries = () => {
     border: 1px solid #f7fafc;
     font-weight: 400;
 }
-.submit-preferred-listings-btn {
-    height: 100%;
+.clear-preferences-btn:hover {
+    background-color: #A9B4C7;
+    cursor: pointer;
+    border: none;
+}
+.submit-preferred-industries-btn {
+    height: 90%;
     width: 85px;
     background-color: #0000B3;
     color: #f7fafc;
@@ -351,6 +367,10 @@ const closePreferredIndustries = () => {
     border-radius: 12px;
     border: 1px solid #0000B3;
     font-weight: 400;
-    padding-right: 12px;
+    margin-right: 20px;
+}
+.submit-preferred-industries-btn:hover {
+    background-color: #1A2540;
+    cursor: pointer;
 }
 </style>
